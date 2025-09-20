@@ -2,41 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Punjab Education Attendance System Design System
+All colors MUST be HSL. Inspired by educational trust, government reliability, and rural accessibility.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base Colors - Clean, accessible foundation */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
 
+    /* Card System - Subtle depth for mobile interfaces */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 15%;
 
+    /* Interactive Elements */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary Brand - Educational Blue with Government Trust */
+    --primary: 220 85% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 220 85% 55%;
+    --primary-dark: 220 85% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Warm Orange for Engagement */
+    --secondary: 25 85% 55%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 25 85% 65%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Success - Green for Attendance Confirmation */
+    --success: 140 65% 45%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 140 65% 90%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Warning - Amber for Alerts */
+    --warning: 45 90% 55%;
+    --warning-foreground: 215 25% 15%;
+    --warning-light: 45 90% 92%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Error - Red for Emergencies */
+    --error: 0 75% 55%;
+    --error-foreground: 0 0% 100%;
+    --error-light: 0 75% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Neutral System */
+    --muted: 210 15% 92%;
+    --muted-foreground: 215 15% 45%;
 
-    --radius: 0.5rem;
+    --accent: 270 75% 92%;
+    --accent-foreground: 270 75% 25%;
+
+    /* Interactive States */
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 85%;
+    --input: 220 15% 90%;
+    --ring: 220 85% 45%;
+
+    /* Spacing and Visual Elements */
+    --radius: 0.75rem;
+    --shadow-soft: 0 2px 12px -4px hsl(var(--primary) / 0.1);
+    --shadow-strong: 0 8px 32px -8px hsl(var(--primary) / 0.2);
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.3);
+
+    /* Gradients for Visual Appeal */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-light)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(140 65% 55%));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary-dark)), hsl(var(--primary)), hsl(var(--secondary)));
+
+    /* Animation Timings */
+    --transition-fast: 0.15s ease-out;
+    --transition-normal: 0.3s ease-out;
+    --transition-slow: 0.5s ease-out;
 
     --sidebar-background: 0 0% 98%;
 
