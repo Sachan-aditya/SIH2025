@@ -4,6 +4,16 @@
 
 This is a comprehensive AI-powered attendance management system designed specifically for rural schools in Punjab, India. The system serves over 15,000 schools and provides automated attendance tracking through multiple methods including face recognition, QR code scanning, and manual entry. The platform is built with offline functionality to handle connectivity issues in rural areas and integrates with government systems for reporting and compliance.
 
+## Recent Changes
+
+**September 21, 2025**: Complete redesign to clean, WHO-style interface
+- Transformed from complex government design to minimal, clean UI
+- Updated color scheme from Punjab colors to professional blue and orange theme
+- Removed all logos and government imagery for simplified appearance
+- Added professional web images (Unsplash) for visual appeal
+- Created CleanHeader and CleanFooter components replacing complex government components
+- Redesigned landing page with WHO-inspired layout: hero section, clean cards, minimal typography
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
