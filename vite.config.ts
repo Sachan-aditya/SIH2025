@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "0.0.0.0",     // bind to all interfaces
     port: 5000,
-    allowedHosts: ["*"], // allow all dynamic Replit domains
+    allowedHosts: ["3bce87ff-6cff-4ea7-9816-a69724438b97-00-1c8uuj0iofjuf.sisko.replit.dev"], // allow all dynamic Replit domains
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

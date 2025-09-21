@@ -2,17 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Rural School Attendance System - Government of India Design System
-Minimalist design with government blue color scheme for maximum accessibility and professional look.
+/* Punjab Smart Attendance System - Government of Punjab Design System
+Dynamic material design with Punjab government colors (Saffron, Green, Blue) for professional government interface.
 */
 
 @layer base {
   :root {
-    /* Base Colors - Clean white foundation */
+    /* Base Colors - Clean white foundation with gradient support */
     --background: 0 0% 100%;
     --foreground: 220 15% 20%;
 
-    /* Card System - Pure white cards */
+    /* Card System - Material design cards with subtle shadows */
     --card: 0 0% 100%;
     --card-foreground: 220 15% 20%;
 
@@ -20,16 +20,16 @@ Minimalist design with government blue color scheme for maximum accessibility an
     --popover: 0 0% 100%;
     --popover-foreground: 220 15% 20%;
 
-    /* Primary - Government Blue (from requirements) */
-    --primary: 219 85% 35%;
+    /* Primary - Punjab Saffron/Orange */
+    --primary: 30 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 219 85% 45%;
-    --primary-dark: 219 85% 25%;
+    --primary-light: 30 100% 60%;
+    --primary-dark: 30 100% 40%;
 
-    /* Secondary - Success Green (from requirements) */
-    --secondary: 142 65% 45%;
+    /* Secondary - Punjab Green */
+    --secondary: 120 61% 34%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-light: 142 65% 90%;
+    --secondary-light: 120 61% 90%;
 
     /* Success States */
     --success: 142 65% 45%;

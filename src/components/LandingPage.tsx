@@ -36,7 +36,7 @@ const LandingPage = () => {
       <div className="government-header" data-testid="government-header">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center space-x-2">
-            <span className="text-xs">{t("governmentOfIndia")}</span>
+            <span className="text-xs">{t("governmentOfPunjab")}</span>
             <span className="text-xs">|</span>
             <span className="text-xs">{t("ministryOfEducation")}</span>
           </div>

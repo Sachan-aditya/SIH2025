@@ -8,9 +8,9 @@ export const translations = {
     settings: "Settings",
     
     // Landing Page
-    schoolTitle: "Rural School Attendance System",
-    governmentOfIndia: "Government of India",
-    ministryOfEducation: "Ministry of Education",
+    schoolTitle: "Punjab Smart Attendance System",
+    governmentOfPunjab: "Government of Punjab",
+    ministryOfEducation: "Ministry of School Education",
     selectLanguage: "Select Language",
     selectClass: "Select Class",
     startAttendance: "Start Attendance",
@@ -80,9 +80,9 @@ export const translations = {
     settings: "सेटिंग्स",
     
     // Landing Page
-    schoolTitle: "ग्रामीण स्कूल उपस्थिति प्रणाली",
-    governmentOfIndia: "भारत सरकार",
-    ministryOfEducation: "शिक्षा मंत्रालय", 
+    schoolTitle: "पंजाब स्मार्ट उपस्थिति प्रणाली",
+    governmentOfPunjab: "पंजाब सरकार",
+    ministryOfEducation: "स्कूली शिक्षा मंत्रालय", 
     selectLanguage: "भाषा चुनें",
     selectClass: "कक्षा चुनें",
     startAttendance: "उपस्थिति शुरू करें",
@@ -152,9 +152,9 @@ export const translations = {
     settings: "ਸੈਟਿੰਗਾਂ",
     
     // Landing Page
-    schoolTitle: "ਪਿੰਡੀ ਸਕੂਲ ਹਾਜ਼ਰੀ ਸਿਸਟਮ",
-    governmentOfIndia: "ਭਾਰਤ ਸਰਕਾਰ",
-    ministryOfEducation: "ਸਿੱਖਿਆ ਮੰਤਰਾਲਾ",
+    schoolTitle: "ਪੰਜਾਬ ਸਮਾਰਟ ਹਾਜ਼ਰੀ ਸਿਸਟਮ",
+    governmentOfPunjab: "ਪੰਜਾਬ ਸਰਕਾਰ",
+    ministryOfEducation: "ਸਕੂਲੀ ਸਿੱਖਿਆ ਮੰਤਰਾਲਾ",
     selectLanguage: "ਭਾਸ਼ਾ ਚੁਣੋ",
     selectClass: "ਜਮਾਤ ਚੁਣੋ",
     startAttendance: "ਹਾਜ਼ਰੀ ਸ਼ੁਰੂ ਕਰੋ", 
