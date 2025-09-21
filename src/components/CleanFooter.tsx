@@ -1,69 +1,91 @@
 const CleanFooter = () => {
   return (
-    <footer className="relative bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 text-white mt-auto overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl"></div>
-      
-      <div className="relative container mx-auto px-6 py-16">
+    <footer className="bg-gray-800 text-white mt-auto">
+      {/* Main Footer */}
+      <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo Section */}
+          {/* Government Section */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-4 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">✨</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-green-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xl">🇮🇳</span>
               </div>
-              <h3 className="text-2xl font-bold gradient-text">Smart Attendance</h3>
+              <div>
+                <h3 className="text-xl font-bold text-white">Smart Attendance System</h3>
+                <p className="text-orange-400 text-sm">Government of Punjab</p>
+              </div>
             </div>
-            <p className="text-purple-100 mb-6 max-w-md leading-relaxed">
-              Revolutionizing education through intelligent attendance management. 
-              Beautiful, efficient, and designed for the modern classroom.
+            <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
+              An initiative by the Government of Punjab under Digital India program to modernize 
+              school attendance management through AI-powered technology for enhanced educational outcomes.
             </p>
-            <div className="flex space-x-4">
-              <div className="w-10 h-10 bg-purple-600/50 rounded-xl flex items-center justify-center hover:bg-purple-500/50 transition-colors cursor-pointer">
-                <span className="text-white">📱</span>
-              </div>
-              <div className="w-10 h-10 bg-purple-600/50 rounded-xl flex items-center justify-center hover:bg-purple-500/50 transition-colors cursor-pointer">
-                <span className="text-white">💼</span>
-              </div>
-              <div className="w-10 h-10 bg-purple-600/50 rounded-xl flex items-center justify-center hover:bg-purple-500/50 transition-colors cursor-pointer">
-                <span className="text-white">🌐</span>
-              </div>
+            <div className="space-y-2 text-sm text-gray-400">
+              <p>🏛️ School Education Department, Punjab</p>
+              <p>📧 education.punjab@gov.in</p>
+              <p>📞 Helpline: 1800-233-4567</p>
             </div>
           </div>
           
-          {/* Quick Links */}
+          {/* Government Links */}
           <div>
-            <h4 className="font-bold text-lg mb-6 gradient-text">Quick Links</h4>
-            <ul className="space-y-3 text-purple-200">
-              <li><a href="#" className="hover:text-white transition-colors hover:translate-x-1 transform inline-block">About Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors hover:translate-x-1 transform inline-block">Features</a></li>
-              <li><a href="#" className="hover:text-white transition-colors hover:translate-x-1 transform inline-block">Analytics</a></li>
-              <li><a href="#" className="hover:text-white transition-colors hover:translate-x-1 transform inline-block">Support</a></li>
+            <h4 className="font-bold text-lg mb-4 text-orange-400">Government Links</h4>
+            <ul className="space-y-2 text-gray-300 text-sm">
+              <li><a href="#" className="hover:text-orange-400 transition-colors">Punjab Government</a></li>
+              <li><a href="#" className="hover:text-orange-400 transition-colors">Chief Minister Office</a></li>
+              <li><a href="#" className="hover:text-orange-400 transition-colors">Education Department</a></li>
+              <li><a href="#" className="hover:text-orange-400 transition-colors">Digital Punjab</a></li>
+              <li><a href="#" className="hover:text-orange-400 transition-colors">Right to Information</a></li>
+              <li><a href="#" className="hover:text-orange-400 transition-colors">Citizen Services</a></li>
             </ul>
           </div>
           
-          {/* Resources */}
+          {/* Quick Services */}
           <div>
-            <h4 className="font-bold text-lg mb-6 gradient-text">Resources</h4>
-            <ul className="space-y-3 text-purple-200">
-              <li><a href="#" className="hover:text-white transition-colors hover:translate-x-1 transform inline-block">User Guide</a></li>
-              <li><a href="#" className="hover:text-white transition-colors hover:translate-x-1 transform inline-block">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors hover:translate-x-1 transform inline-block">Terms of Use</a></li>
-              <li><a href="#" className="hover:text-white transition-colors hover:translate-x-1 transform inline-block">Contact</a></li>
+            <h4 className="font-bold text-lg mb-4 text-green-400">Quick Services</h4>
+            <ul className="space-y-2 text-gray-300 text-sm">
+              <li><a href="#" className="hover:text-green-400 transition-colors">Student Registration</a></li>
+              <li><a href="#" className="hover:text-green-400 transition-colors">Teacher Portal</a></li>
+              <li><a href="#" className="hover:text-green-400 transition-colors">Attendance Reports</a></li>
+              <li><a href="#" className="hover:text-green-400 transition-colors">Analytics Dashboard</a></li>
+              <li><a href="#" className="hover:text-green-400 transition-colors">System Status</a></li>
+              <li><a href="#" className="hover:text-green-400 transition-colors">Help & Support</a></li>
             </ul>
           </div>
         </div>
-        
-        {/* Bottom Bar */}
-        <div className="border-t border-purple-400/20 mt-12 pt-8 text-center">
-          <p className="text-purple-200 mb-2">
-            Made with 💜 by Team Udaan • Empowering Education Through Technology
-          </p>
-          <p className="text-sm text-purple-300">
-            © {new Date().getFullYear()} Government of Punjab - All rights reserved
-          </p>
+      </div>
+      
+      {/* Government Partner Links */}
+      <div className="bg-gray-900 py-6">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-wrap items-center justify-center space-x-8 text-sm text-gray-400">
+            <a href="#" className="hover:text-white transition-colors">MyGov.in</a>
+            <a href="#" className="hover:text-white transition-colors">India.gov.in</a>
+            <a href="#" className="hover:text-white transition-colors">Data.gov.in</a>
+            <a href="#" className="hover:text-white transition-colors">Digital India</a>
+            <a href="#" className="hover:text-white transition-colors">NIC</a>
+            <a href="#" className="hover:text-white transition-colors">UIDAI</a>
+          </div>
+        </div>
+      </div>
+      
+      {/* Bottom Government Bar */}
+      <div className="bg-orange-600 py-4">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between text-sm">
+            <div className="text-white mb-2 md:mb-0">
+              <span className="font-semibold">Last Updated:</span> {new Date().toLocaleDateString('en-IN')} | 
+              <span className="font-semibold ml-2">Visitors:</span> 1,25,847
+            </div>
+            <div className="text-white text-center">
+              © {new Date().getFullYear()} Government of Punjab. Content owned by School Education Department. 
+              Developed by <span className="font-semibold">Team Udaan</span>
+            </div>
+          </div>
+          <div className="text-center mt-2">
+            <p className="text-orange-100 text-xs">
+              Best viewed in Chrome, Firefox, Safari, Edge. Screen Resolution: 1024x768 or higher
+            </p>
+          </div>
         </div>
       </div>
     </footer>
