@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { getTranslation } from "../data/translations";
+import PunjabHeader from "./PunjabHeader";
+import PunjabFooter from "./PunjabFooter";
 
 const LandingPage = () => {
   const [, setLocation] = useLocation();
@@ -31,34 +33,48 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Government Header */}
-      <div className="government-header" data-testid="government-header">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center space-x-2">
-            <span className="text-xs">{t("governmentOfPunjab")}</span>
-            <span className="text-xs">|</span>
-            <span className="text-xs">{t("ministryOfEducation")}</span>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Dynamic Punjab Header */}
+      <PunjabHeader language={selectedLanguage} />
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          {/* Logo and Title Section */}
+      {/* Main Content - IRCTC Style */}
+      <div className="flex-1 py-8">
+        <div className="container mx-auto px-4">
+          {/* Hero Section */}
           <div className="text-center mb-12">
-            <div className="w-24 h-24 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center" data-testid="school-logo">
-              <svg className="w-12 h-12 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4" data-testid="text-school-title">
+            <h1 className="text-5xl font-bold text-gray-800 mb-4" data-testid="text-school-title">
               {t("schoolTitle")}
             </h1>
-            <p className="text-muted-foreground text-lg">
-              {t("governmentOfIndia")} • {t("ministryOfEducation")}
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              AI-Powered Smart Attendance Management Solution for all Punjab Government Schools
             </p>
+            
+            {/* Key Features Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <div className="material-card p-6 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🎯</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">AI Face Recognition</h3>
+                <p className="text-sm text-gray-600">99.2% accurate face detection with advanced AI algorithms</p>
+              </div>
+              
+              <div className="material-card p-6 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-secondary to-secondary-light rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">📱</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">QR Code Scanning</h3>
+                <p className="text-sm text-gray-600">Fast bulk attendance with secure QR code technology</p>
+              </div>
+              
+              <div className="material-card p-6 text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-accent to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">📊</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Real-time Analytics</h3>
+                <p className="text-sm text-gray-600">Live dashboard with comprehensive attendance insights</p>
+              </div>
+            </div>
           </div>
 
           {/* Connection Status */}
