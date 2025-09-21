@@ -11,9 +11,9 @@ const LandingPage = () => {
   const [isOnline, setIsOnline] = useState(true);
 
   const languages = [
-    { code: "en", name: "English", flag: "🇮🇳" },
-    { code: "hi", name: "हिंदी", flag: "🇮🇳" },
-    { code: "pa", name: "ਪੰਜਾਬੀ", flag: "🇮🇳" }
+    { code: "en", name: "English", flag: "🏛️" },
+    { code: "hi", name: "हिंदी", flag: "🏛️" },
+    { code: "pa", name: "ਪੰਜਾਬੀ", flag: "🏛️" }
   ];
 
   const classes = [
@@ -68,7 +68,7 @@ const LandingPage = () => {
               </div>
               
               <div className="material-card p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-accent to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-4" style={{background: 'var(--gradient-accent)'}}>
                   <span className="text-2xl">📊</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Real-time Analytics</h3>
@@ -165,17 +165,11 @@ const LandingPage = () => {
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="text-center mt-8 pt-8 border-t border-border">
-            <p className="text-sm text-muted-foreground">
-              Developed by <span className="font-medium text-primary" data-testid="team-name">Team Udaan</span>
-            </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Version 1.0 • {new Date().getFullYear()}
-            </p>
-          </div>
         </div>
       </div>
+
+      {/* Punjab Footer */}
+      <PunjabFooter language={selectedLanguage} />
     </div>
   );
 };
