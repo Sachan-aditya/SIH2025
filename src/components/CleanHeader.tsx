@@ -2,9 +2,10 @@ import { getTranslation } from "../data/translations";
 
 interface CleanHeaderProps {
   language: string;
+  onLanguageChange?: (language: string) => void;
 }
 
-const CleanHeader = ({ language }: CleanHeaderProps) => {
+const CleanHeader = ({ language, onLanguageChange }: CleanHeaderProps) => {
   const t = (key: string) => getTranslation(key, language);
 
   return (
@@ -20,6 +21,18 @@ const CleanHeader = ({ language }: CleanHeaderProps) => {
               <span>A+</span>
               <span>A</span>
               <span>A-</span>
+              
+              {/* Mobile Language Selector */}
+              <select 
+                value={language}
+                onChange={(e) => onLanguageChange?.(e.target.value)}
+                className="bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm hover:bg-gray-600 lg:hidden"
+                data-testid="select-language-mobile"
+              >
+                <option value="en">EN</option>
+                <option value="hi">हि</option>
+                <option value="pa">ਪੰ</option>
+              </select>
             </div>
           </div>
         </div>
@@ -47,6 +60,21 @@ const CleanHeader = ({ language }: CleanHeaderProps) => {
               <a href="#" className="text-gray-700 hover:text-orange-600 font-medium transition-colors border-b-2 border-transparent hover:border-orange-500 pb-1">About</a>
               <a href="#" className="text-gray-700 hover:text-orange-600 font-medium transition-colors border-b-2 border-transparent hover:border-orange-500 pb-1">Services</a>
               <a href="#" className="text-gray-700 hover:text-orange-600 font-medium transition-colors border-b-2 border-transparent hover:border-orange-500 pb-1">Contact</a>
+              
+              {/* Language Selector */}
+              <div className="relative">
+                <select 
+                  value={language}
+                  onChange={(e) => onLanguageChange?.(e.target.value)}
+                  className="bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-700 hover:border-orange-500 focus:border-orange-500 focus:outline-none font-medium"
+                  data-testid="select-language-desktop"
+                >
+                  <option value="en">🇮🇳 English</option>
+                  <option value="hi">🇮🇳 हिन्दी</option>
+                  <option value="pa">🇮🇳 ਪੰਜਾਬੀ</option>
+                </select>
+              </div>
+              
               <button className="bg-gradient-to-r from-orange-500 to-green-600 text-white px-6 py-3 rounded-lg hover:from-orange-600 hover:to-green-700 transition-all shadow-lg font-semibold">
                 Login / Register
               </button>

@@ -38,7 +38,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Government Header */}
-      <CleanHeader language={selectedLanguage} />
+      <CleanHeader language={selectedLanguage} onLanguageChange={setSelectedLanguage} />
 
       {/* Government Hero Banner */}
       <div className="relative bg-gradient-to-r from-orange-500 via-orange-600 to-green-600 text-white overflow-hidden">
