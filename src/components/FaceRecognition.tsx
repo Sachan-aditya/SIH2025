@@ -23,7 +23,7 @@ const FaceRecognition = ({
   setIsScanning 
 }: FaceRecognitionProps) => {
   const [scanningDots, setScanningDots] = useState(0);
-  const [autoScanInterval, setAutoScanInterval] = useState<NodeJS.Timeout | null>(null);
+  const [autoScanInterval, setAutoScanInterval] = useState<ReturnType<typeof setInterval> | null>(null);
 
   const t = (key: string) => getTranslation(key, language);
 
