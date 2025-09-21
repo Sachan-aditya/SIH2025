@@ -3,11 +3,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Router, Route, Switch } from "wouter";
+
+// Rural School Attendance System Components
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import TeacherDashboard from "./pages/TeacherDashboard";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
+import LandingPage from "./components/LandingPage";
+import Dashboard from "./components/Dashboard";
+import AttendanceCapture from "./components/AttendanceCapture";
+import StudentManagement from "./components/StudentManagement";
+import Reports from "./components/Reports";
+import Settings from "./components/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -18,16 +22,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <Router>
-        <Layout>
-          <Switch>
-            <Route path="/" component={Home} />
-            <Route path="/teacher" component={TeacherDashboard} />
-            <Route path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route component={NotFound} />
-          </Switch>
-        </Layout>
+        <Switch>
+          <Route path="/" component={LandingPage} />
+          <Route path="/dashboard" component={() => <Layout><Dashboard /></Layout>} />
+          <Route path="/attendance" component={() => <Layout><AttendanceCapture /></Layout>} />
+          <Route path="/students" component={() => <Layout><StudentManagement /></Layout>} />
+          <Route path="/reports" component={() => <Layout><Reports /></Layout>} />
+          <Route path="/settings" component={() => <Layout><Settings /></Layout>} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route component={() => <Layout><NotFound /></Layout>} />
+        </Switch>
       </Router>
     </TooltipProvider>
   </QueryClientProvider>
