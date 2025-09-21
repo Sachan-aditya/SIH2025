@@ -1,0 +1,258 @@
+🚀 REPLIT UI-ONLY DEVELOPMENT PROMPT
+Create a Rural School Attendance System prototype with full UI and mock functionality (no database) that demonstrates all features:
+PROJECT REQUIREMENTS:
+Tech Stack:
+
+Frontend: React.js with Hooks
+Styling: CSS with mobile-first responsive design
+Mock Data: JavaScript objects and localStorage
+Face Recognition: Mock implementation with timer
+QR Code: Mock scanner with sample codes
+
+Complete UI Features to Build:
+1. Landing Page:
+
+School logo and "Rural Attendance System" title
+Language selector (English/Hindi/Punjabi)
+Class selection dropdown (Class 1-5)
+"Start Attendance" button
+Connection status indicator (Online/Offline)
+
+2. Main Dashboard:
+
+Top navigation: Attendance | Students | Reports | Settings
+Quick stats cards: Total Students, Present Today, Absent Today, Attendance %
+Recent activity feed
+Emergency button (mock alert)
+
+3. Attendance Capture Screen:
+
+Three mode tabs: 📸 Face Recognition | 📱 QR Scan | ✋ Manual
+Live camera preview (mock with placeholder)
+Student grid with photos and names
+Green/Red status buttons per student
+Progress bar showing completion
+"Submit Attendance" button
+Voice feedback: "Student recognized" (text display)
+
+4. Face Recognition Mode:
+
+Mock camera feed with overlay box
+"Scanning..." animation with dots
+Simulated recognition results after 2 seconds
+Student match with confidence % (mock: 95%)
+Auto-mark attendance on recognition
+
+5. QR Code Scanner Mode:
+
+Mock camera viewfinder with scanning line animation
+Sample QR codes for testing (generate 10 codes)
+Beep sound effect (visual indicator)
+Instant student identification on scan
+Batch scanning capability
+
+6. Manual Selection Mode:
+
+Searchable student list
+Large touch-friendly buttons
+Bulk select/deselect options
+Alphabetical sorting
+Photo thumbnails with names
+
+7. Student Management:
+
+Add/Edit student form with photo upload (mock)
+Student profile cards with details
+QR code generation and display
+Face photo capture simulation
+Bulk import interface (CSV upload mock)
+
+8. Reports Dashboard:
+
+Calendar date picker
+Attendance charts (use Chart.js or similar)
+Daily/Weekly/Monthly views
+Exportable reports (mock download)
+Government format templates
+Print-ready layouts
+
+9. Settings Panel:
+
+Language selection with flag icons
+Attendance thresholds configuration
+Notification preferences
+Backup & sync options
+About/Help sections
+
+Mock Data Structure:
+javascriptconst sampleStudents = [
+  {
+    id: 1,
+    name: "Arjun Singh",
+    rollNumber: "001",
+    class: "Class 5",
+    photo: "mock-photo-1.jpg",
+    qrCode: "QR_SCHOOL_5_001_ABC123",
+    attendance: { present: 18, absent: 2, percentage: 90 }
+  },
+  // ... 29 more students
+];
+
+const attendanceData = {
+  "2024-01-15": {
+    "Class 5": [
+      { studentId: 1, status: "present", method: "face", time: "09:15" },
+      { studentId: 2, status: "absent", method: null, time: null }
+    ]
+  }
+};
+Key UI Components to Build:
+AttendanceCapture Component:
+jsxconst AttendanceCapture = () => {
+  const [mode, setMode] = useState('face');
+  const [isScanning, setIsScanning] = useState(false);
+  const [recognitionResult, setRecognitionResult] = useState(null);
+  const [attendanceMarked, setAttendanceMarked] = useState({});
+
+  // Mock face recognition with 2-second delay
+  const mockFaceRecognition = () => {
+    setIsScanning(true);
+    setTimeout(() => {
+      const randomStudent = sampleStudents[Math.floor(Math.random() * sampleStudents.length)];
+      setRecognitionResult({
+        student: randomStudent,
+        confidence: 95,
+        matched: true
+      });
+      setIsScanning(false);
+    }, 2000);
+  };
+
+  return (
+    <div className="attendance-capture">
+      {/* Mode tabs, camera preview, student grid, etc. */}
+    </div>
+  );
+};
+StudentGrid Component:
+jsxconst StudentGrid = ({ students, onAttendanceChange, attendanceStatus }) => {
+  return (
+    <div className="student-grid">
+      {students.map(student => (
+        <div key={student.id} className="student-card">
+          <img src={student.photo} alt={student.name} className="student-photo" />
+          <h4>{student.name}</h4>
+          <p>Roll: {student.rollNumber}</p>
+          <div className="attendance-buttons">
+            <button 
+              className={`btn-present ${attendanceStatus[student.id] === 'present' ? 'active' : ''}`}
+              onClick={() => onAttendanceChange(student.id, 'present')}
+            >
+              ✓ Present
+            </button>
+            <button 
+              className={`btn-absent ${attendanceStatus[student.id] === 'absent' ? 'active' : ''}`}
+              onClick={() => onAttendanceChange(student.id, 'absent')}
+            >
+              ✗ Absent
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+Visual Design Requirements:
+Color Scheme:
+
+Primary: #1e40af (Government Blue)
+Secondary: #16a34a (Success Green)
+Warning: #dc2626 (Alert Red)
+Background: #f8fafc (Light Gray)
+Text: #1f2937 (Dark Gray)
+
+Responsive Breakpoints:
+
+Mobile: 320px - 768px
+Tablet: 768px - 1024px
+Desktop: 1024px+
+
+Animation Requirements:
+
+Loading spinners for face recognition
+Smooth transitions between modes
+Progress bars for bulk operations
+Success/error notifications
+Pulse animation for scanning
+
+Mock Functionality Features:
+
+Face Recognition Mock:
+
+2-second scanning animation
+95% success rate simulation
+Random student matching
+Confidence score display
+
+
+QR Scanner Mock:
+
+Sample QR codes for testing
+Instant recognition simulation
+Batch scanning demo
+
+
+Reports Mock:
+
+Chart.js integration for attendance graphs
+Sample data for last 30 days
+Export functionality (mock download)
+Print-ready formatting
+
+
+Multi-language Mock:
+
+English/Hindi/Punjabi text translations
+RTL support for Hindi/Punjabi
+Voice commands simulation (text display)
+
+
+Offline Mode Mock:
+
+Connection status toggle
+Cached data simulation
+Sync queue demonstration
+
+
+
+Sample Data to Include:
+
+30 students across 5 classes
+15 days of attendance history
+5 different attendance patterns
+Sample QR codes for testing
+Mock government reports
+Multilingual text content
+
+File Structure:
+src/
+├── components/
+│   ├── AttendanceCapture.jsx
+│   ├── StudentGrid.jsx
+│   ├── QRScanner.jsx
+│   ├── Dashboard.jsx
+│   ├── Reports.jsx
+│   ├── StudentManagement.jsx
+│   └── Settings.jsx
+├── data/
+│   ├── mockStudents.js
+│   ├── mockAttendance.js
+│   └── translations.js
+├── styles/
+│   ├── App.css
+│   ├── components.css
+│   └── responsive.css
+├── utils/
+│   ├── helpers.js
+│   └── mockServices.js
+└── App.jsx
