@@ -6,8 +6,8 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",     // keeps IPv6 style binding
-    port: 8080,
+    host: "0.0.0.0",     // bind to all interfaces  
+    port: 5000,
     allowedHosts: [
       // add your Replit domain here
       "3bce87ff-6cff-4ea7-9816-a69724438b97-00-1c8uuj0iofjuf.sisko.replit.dev",
