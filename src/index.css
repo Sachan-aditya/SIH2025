@@ -70,57 +70,60 @@ Dynamic material design with Punjab government colors (Saffron, Green, Blue) for
     --shadow-medium: 0 10px 15px -3px hsl(270 91% 65% / 0.1);
     --shadow-large: 0 20px 25px -5px hsl(270 91% 65% / 0.1);
     
-  /* Custom animations */
-  .float-animation {
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  .gradient-text {
-    background: linear-gradient(135deg, hsl(220, 91%, 60%), hsl(240, 82%, 45%));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
-  /* Book-like styling */
-  .book-shadow {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .book-page {
-    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-    border: 1px solid rgba(220, 220, 220, 0.3);
-  }
+/* Custom animations and styling */
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
 
-  /* Sliding animation */
-  .slide-in {
-    animation: slideIn 0.6s ease-out forwards;
-  }
-  
-  @keyframes slideIn {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
+.gradient-text {
+  background: linear-gradient(135deg, hsl(220, 91%, 60%), hsl(240, 82%, 45%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  /* Government marquee animation */
-  @keyframes marquee {
-    0% { transform: translate3d(100%, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
+/* Book-like styling */
+.book-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.book-page {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(220, 220, 220, 0.3);
+}
+
+/* Sliding animation */
+.slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
   }
-  .animate-marquee {
-    animation: marquee 30s linear infinite;
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translate3d(100%, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
     --shadow-strong: 0 4px 12px -2px hsl(219 85% 35% / 0.15);
 
     /* Animation and Transitions */

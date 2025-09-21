@@ -1,4 +1,5 @@
 import { getTranslation } from "../data/translations";
+import { Link, useLocation } from 'wouter';
 
 interface CleanHeaderProps {
   language: string;
@@ -7,6 +8,11 @@ interface CleanHeaderProps {
 
 const CleanHeader = ({ language, onLanguageChange }: CleanHeaderProps) => {
   const t = (key: string) => getTranslation(key, language);
+  const [, setLocation] = useLocation();
+  
+  const handleLogin = () => {
+    setLocation('/login');
+  };
 
   return (
     <header className="relative">
@@ -61,10 +67,10 @@ const CleanHeader = ({ language, onLanguageChange }: CleanHeaderProps) => {
             
             {/* Enhanced Navigation */}
             <nav className="hidden lg:flex items-center space-x-6">
-              <a href="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-home">🏠 Home</a>
-              <a href="/about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-about">📖 About</a>
-              <a href="/analytics" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-analytics">📊 Analytics</a>
-              <a href="/support" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-support">🔧 Support</a>
+              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-home">🏠 Home</Link>
+              <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-about">📖 Dashboard</Link>
+              <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-analytics">📊 Analytics</Link>
+              <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-support">🔧 Support</Link>
               
               {/* Language Selector */}
               <div className="relative">
@@ -80,7 +86,11 @@ const CleanHeader = ({ language, onLanguageChange }: CleanHeaderProps) => {
                 </select>
               </div>
               
-              <button className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-blue-800 transition-all shadow-lg hover:shadow-xl font-semibold book-shadow transform hover:-translate-y-1" data-testid="button-login">
+              <button 
+                onClick={handleLogin}
+                className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-blue-800 transition-all shadow-lg hover:shadow-xl font-semibold book-shadow transform hover:-translate-y-1" 
+                data-testid="button-login"
+              >
                 🔐 Login / Register
               </button>
             </nav>
