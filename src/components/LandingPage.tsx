@@ -192,8 +192,11 @@ const LandingPage = () => {
                 Secure, fast, and reliable student identification for seamless attendance marking.
               </p>
               <div className="mt-6 text-center">
-                <button className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-all font-semibold">
-                  Learn More 🔍
+                <button
+                  onClick={() => setLocation('/attendance')}
+                  className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-all font-semibold"
+                >
+                  Try Face Recognition 🎯
                 </button>
               </div>
             </div>
@@ -209,8 +212,11 @@ const LandingPage = () => {
                 Perfect for large classroom environments and quick student check-ins.
               </p>
               <div className="mt-6 text-center">
-                <button className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all font-semibold">
-                  Try Now 📲
+                <button
+                  onClick={() => setLocation('/attendance')}
+                  className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all font-semibold"
+                >
+                  Try QR Scanner 📱
                 </button>
               </div>
             </div>
@@ -226,8 +232,11 @@ const LandingPage = () => {
                 and automated intelligent reporting for data-driven educational insights.
               </p>
               <div className="mt-6 text-center">
-                <button className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-all font-semibold">
-                  View Dashboard 📈
+                <button
+                  onClick={() => setLocation('/reports')}
+                  className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 transition-all font-semibold"
+                >
+                  View Reports 📊
                 </button>
               </div>
             </div>

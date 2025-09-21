@@ -39,16 +39,16 @@ const CleanFooter = () => {
               </p>
             </div>
             <div className="flex space-x-4 mt-6">
-              <a href="/facebook" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
                 <span className="text-white text-xl">📘</span>
               </a>
-              <a href="/twitter" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
                 <span className="text-white text-xl">🐦</span>
               </a>
-              <a href="/linkedin" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
                 <span className="text-white text-xl">💼</span>
               </a>
-              <a href="/youtube" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
                 <span className="text-white text-xl">📺</span>
               </a>
             </div>
@@ -58,12 +58,12 @@ const CleanFooter = () => {
           <div>
             <h4 className="font-bold text-xl mb-6 text-blue-300">🚀 Quick Access</h4>
             <ul className="space-y-3 text-blue-200">
-              <li><a href="/dashboard?role=teacher" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍🏫 Teacher Portal</a></li>
-              <li><a href="/dashboard?role=admin" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍💼 Admin Dashboard</a></li>
-              <li><a href="/dashboard?role=parent" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍👩‍👧‍👦 Parent Portal</a></li>
-              <li><a href="/dashboard?role=student" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🎓 Student Portal</a></li>
-              <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📊 Live Analytics</a></li>
-              <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🔧 Help & Support</a></li>
+              <li><a href="/teacher" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍🏫 Teacher Portal</a></li>
+              <li><a href="/admin" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍💼 Admin Dashboard</a></li>
+              <li><a href="/parent" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍👩‍👧‍👦 Parent Portal</a></li>
+              <li><a href="/student" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🎓 Student Portal</a></li>
+              <li><a href="/reports" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📊 Live Analytics</a></li>
+              <li><a href="/settings" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🔧 Help & Support</a></li>
             </ul>
           </div>
           
@@ -71,12 +71,12 @@ const CleanFooter = () => {
           <div>
             <h4 className="font-bold text-xl mb-6 text-green-300">⚡ Smart Services</h4>
             <ul className="space-y-3 text-blue-200">
-              <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📈 Attendance Reports</a></li>
-              <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🎯 Performance Insights</a></li>
+              <li><a href="/reports" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📈 Attendance Reports</a></li>
+              <li><a href="/reports" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🎯 Performance Insights</a></li>
               <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🤖 AI Recommendations</a></li>
-              <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">⚡ System Status</a></li>
-              <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📱 Mobile App</a></li>
-              <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">⚙️ API Documentation</a></li>
+              <li><a href="/settings" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">⚡ System Status</a></li>
+              <li><a href="/attendance" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📱 Mobile App</a></li>
+              <li><a href="/settings" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">⚙️ API Documentation</a></li>
             </ul>
           </div>
         </div>

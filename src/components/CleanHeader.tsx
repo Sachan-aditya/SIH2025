@@ -11,7 +11,7 @@ const CleanHeader = ({ language, onLanguageChange }: CleanHeaderProps) => {
   const [, setLocation] = useLocation();
   
   const handleLogin = () => {
-    setLocation('/login');
+    setLocation('/dashboard');
   };
 
   return (
@@ -69,8 +69,8 @@ const CleanHeader = ({ language, onLanguageChange }: CleanHeaderProps) => {
             <nav className="hidden lg:flex items-center space-x-6">
               <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-home">🏠 Home</Link>
               <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-about">📖 Dashboard</Link>
-              <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-analytics">📊 Analytics</Link>
-              <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-support">🔧 Support</Link>
+              <Link href="/reports" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-analytics">📊 Analytics</Link>
+              <Link href="/attendance" className="text-gray-700 hover:text-blue-600 font-medium transition-colors border-b-2 border-transparent hover:border-blue-500 pb-1 px-3 py-2 rounded-lg hover:bg-blue-50" data-testid="nav-support">🎯 Attendance</Link>
               
               {/* Language Selector */}
               <div className="relative">

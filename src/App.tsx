@@ -14,6 +14,12 @@ import Reports from "./components/Reports";
 import Settings from "./components/Settings";
 import NotFound from "./pages/NotFound";
 
+// Role-based Components
+import TeacherDashboard from "./components/AttendanceSystem/TeacherDashboard";
+import AdminDashboard from "./components/AttendanceSystem/AdminDashboard";
+import ParentPortal from "./components/AttendanceSystem/ParentPortal";
+import StudentInterface from "./components/AttendanceSystem/StudentInterface";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -29,6 +35,13 @@ const App = () => (
           <Route path="/students" component={() => <Layout><StudentManagement /></Layout>} />
           <Route path="/reports" component={() => <Layout><Reports /></Layout>} />
           <Route path="/settings" component={() => <Layout><Settings /></Layout>} />
+
+          {/* Role-based Routes */}
+          <Route path="/teacher" component={TeacherDashboard} />
+          <Route path="/admin" component={AdminDashboard} />
+          <Route path="/parent" component={ParentPortal} />
+          <Route path="/student" component={StudentInterface} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route component={() => <Layout><NotFound /></Layout>} />
         </Switch>
