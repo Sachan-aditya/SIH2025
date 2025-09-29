@@ -1,121 +1,160 @@
+import { Mail, Phone, MapPin, ExternalLink, Heart } from 'lucide-react';
+import { Link } from 'wouter';
+
 const CleanFooter = () => {
+  const currentYear = new Date().getFullYear();
+
+  const quickLinks = [
+    { label: 'Teacher Portal', href: '/teacher', icon: '👨‍🏫' },
+    { label: 'Admin Dashboard', href: '/admin', icon: '🏛️' },
+    { label: 'Parent Portal', href: '/parent', icon: '👨‍👩‍👧' },
+    { label: 'Student Portal', href: '/student', icon: '🎓' },
+  ];
+
+  const resources = [
+    { label: 'Documentation', href: '#' },
+    { label: 'API Reference', href: '#' },
+    { label: 'Mobile Apps', href: '#' },
+    { label: 'Support Center', href: '#' },
+  ];
+
+  const stats = [
+    { value: '15.8K+', label: 'Schools' },
+    { value: '5.2M+', label: 'Students' },
+    { value: '42K+', label: 'Teachers' },
+    { value: '99.2%', label: 'Accuracy' },
+  ];
+
   return (
-    <footer className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white mt-auto relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-      
-      {/* Main Footer */}
-      <div className="relative container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Smart Education Section */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-6 mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center book-shadow">
-                <span className="text-white font-bold text-2xl">📚</span>
+    <footer className="bg-white border-t border-gray-100 mt-auto">
+      {/* Stats Bar */}
+      <div className="bg-gradient-to-r from-gray-50 to-white py-8">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-2xl font-bold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-gray-600 mt-1">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Content */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {/* Brand Section */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white text-xl font-bold">S</span>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white mb-1">Smart Education Portal</h3>
-                <p className="text-blue-300 font-semibold">AI-Powered Learning Analytics</p>
+                <h3 className="text-lg font-bold text-gray-900">Smart Shiksha</h3>
+                <p className="text-xs text-gray-500">Scan System</p>
               </div>
             </div>
-            <p className="text-blue-100 mb-8 max-w-lg leading-relaxed text-lg">
-              Revolutionizing education through intelligent attendance management and analytics. 
-              Empowering students, teachers, and institutions with next-generation learning insights.
+            <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+              Revolutionizing education through intelligent attendance management and analytics.
             </p>
-            <div className="space-y-3 text-blue-200">
-              <p className="flex items-center">
-                <span className="text-2xl mr-3">🏫</span>
-                <span className="font-semibold">Smart Education Department • Punjab Technology Initiative</span>
-              </p>
-              <p className="flex items-center">
-                <span className="text-2xl mr-3">📧</span>
-                <span className="font-semibold">smartedu.punjab@gov.in</span>
-              </p>
-              <p className="flex items-center">
-                <span className="text-2xl mr-3">📞</span>
-                <span className="font-semibold">24/7 Support: 1800-SMART-EDU</span>
-              </p>
-            </div>
-            <div className="flex space-x-4 mt-6">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
-                <span className="text-white text-xl">📘</span>
+            <div className="space-y-2 text-sm">
+              <a href="mailto:support@smartshiksha.edu" className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors">
+                <Mail className="w-4 h-4" />
+                support@smartshiksha.edu
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
-                <span className="text-white text-xl">🐦</span>
+              <a href="tel:18001234567" className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors">
+                <Phone className="w-4 h-4" />
+                1800-123-4567
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
-                <span className="text-white text-xl">💼</span>
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600/50 rounded-xl flex items-center justify-center hover:bg-blue-500/70 transition-colors cursor-pointer">
-                <span className="text-white text-xl">📺</span>
-              </a>
+              <div className="flex items-center gap-2 text-gray-600">
+                <MapPin className="w-4 h-4" />
+                Punjab, India
+              </div>
             </div>
           </div>
-          
-          {/* Quick Access */}
+
+          {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-xl mb-6 text-blue-300">🚀 Quick Access</h4>
-            <ul className="space-y-3 text-blue-200">
-              <li><a href="/teacher" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍🏫 Teacher Portal</a></li>
-              <li><a href="/admin" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍💼 Admin Dashboard</a></li>
-              <li><a href="/parent" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">👨‍👩‍👧‍👦 Parent Portal</a></li>
-              <li><a href="/student" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🎓 Student Portal</a></li>
-              <li><a href="/reports" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📊 Live Analytics</a></li>
-              <li><a href="/settings" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🔧 Help & Support</a></li>
+            <h4 className="font-semibold text-gray-900 mb-4">Quick Access</h4>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="flex items-center gap-2 text-sm text-gray-600 hover:text-red-500 transition-colors">
+                    <span>{link.icon}</span>
+                    <span>{link.label}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-          
-          {/* Smart Services */}
+
+          {/* Resources */}
           <div>
-            <h4 className="font-bold text-xl mb-6 text-green-300">⚡ Smart Services</h4>
-            <ul className="space-y-3 text-blue-200">
-              <li><a href="/reports" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📈 Attendance Reports</a></li>
-              <li><a href="/reports" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🎯 Performance Insights</a></li>
-              <li><a href="/dashboard" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">🤖 AI Recommendations</a></li>
-              <li><a href="/settings" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">⚡ System Status</a></li>
-              <li><a href="/attendance" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">📱 Mobile App</a></li>
-              <li><a href="/settings" className="hover:text-white transition-colors hover:translate-x-2 transform inline-block font-medium">⚙️ API Documentation</a></li>
+            <h4 className="font-semibold text-gray-900 mb-4">Resources</h4>
+            <ul className="space-y-3">
+              {resources.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-500 transition-colors">
+                    <span>{link.label}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Government Links */}
+          <div>
+            <h4 className="font-semibold text-gray-900 mb-4">Government Portals</h4>
+            <ul className="space-y-3">
+              <li>
+                <a href="https://punjab.gov.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-500 transition-colors">
+                  Punjab Government
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
+              <li>
+                <a href="https://india.gov.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-500 transition-colors">
+                  India.gov.in
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
+              <li>
+                <a href="https://digitalindia.gov.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-500 transition-colors">
+                  Digital India
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
+              <li>
+                <a href="https://mygov.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-500 transition-colors">
+                  MyGov.in
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
             </ul>
           </div>
         </div>
       </div>
-      
-      {/* Technology Partners */}
-      <div className="relative bg-blue-800/50 py-8">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-4">
-            <h5 className="text-blue-200 font-semibold text-lg">🤝 Technology Partners & Integrations</h5>
-          </div>
-          <div className="flex flex-wrap items-center justify-center space-x-8 text-sm text-blue-300">
-            <a href="https://mygov.in" className="hover:text-white transition-colors font-medium">MyGov.in</a>
-            <a href="https://india.gov.in" className="hover:text-white transition-colors font-medium">India.gov.in</a>
-            <a href="https://data.gov.in" className="hover:text-white transition-colors font-medium">Data.gov.in</a>
-            <a href="https://digitalindia.gov.in" className="hover:text-white transition-colors font-medium">Digital India</a>
-            <a href="https://nic.in" className="hover:text-white transition-colors font-medium">NIC</a>
-            <a href="https://uidai.gov.in" className="hover:text-white transition-colors font-medium">UIDAI</a>
-          </div>
-        </div>
-      </div>
-      
+
       {/* Bottom Bar */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 py-6">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row items-center justify-between text-sm">
-            <div className="text-white mb-4 lg:mb-0 text-center lg:text-left">
-              <span className="font-bold">🕒 Last Updated:</span> {new Date().toLocaleDateString('en-IN')} | 
-              <span className="font-bold ml-3">👥 Active Users:</span> 2,45,847 | 
-              <span className="font-bold ml-3">📊 Sessions Today:</span> 1,25,430
+      <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white py-4">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+            <div className="flex items-center gap-6">
+              <span>© {currentYear} Smart Shiksha Scan</span>
+              <span className="text-gray-400">•</span>
+              <a href="#" className="hover:text-red-400 transition-colors">Privacy Policy</a>
+              <span className="text-gray-400">•</span>
+              <a href="#" className="hover:text-red-400 transition-colors">Terms of Service</a>
             </div>
-            <div className="text-white text-center">
-              © {new Date().getFullYear()} Smart Education Portal. Powered by AI • Built with 💙 by <span className="font-bold">Team Udaan</span>
+            <div className="flex items-center gap-2 text-gray-300">
+              <span>Made with</span>
+              <Heart className="w-4 h-4 text-red-500 fill-current" />
+              <span>by Team Udaan</span>
             </div>
-          </div>
-          <div className="text-center mt-4">
-            <p className="text-blue-200 text-xs">
-              🌟 Best experience on Chrome, Firefox, Safari, Edge • Optimized for 1024x768+ • Mobile-Friendly Design
-            </p>
           </div>
         </div>
       </div>

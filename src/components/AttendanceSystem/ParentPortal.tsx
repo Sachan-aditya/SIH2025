@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Progress } from '@/components/ui/progress';
+import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Smartphone, 
-  Bell, 
-  Calendar, 
-  TrendingUp, 
+import {
+  Bell,
+  Calendar,
+  TrendingUp,
   MessageCircle,
   CheckCircle,
   XCircle,
@@ -17,11 +13,16 @@ import {
   Award,
   Target,
   BookOpen,
-  Heart,
   MapPin,
-  AlertTriangle,
   Phone,
-  Shield
+  Shield,
+  User,
+  Home,
+  ChevronRight,
+  Download,
+  Star,
+  Activity,
+  AlertCircle
 } from 'lucide-react';
 
 interface ChildData {
@@ -29,6 +30,7 @@ interface ChildData {
   name: string;
   class: string;
   rollNumber: string;
+  section: string;
   attendancePercentage: number;
   presentDays: number;
   totalDays: number;
@@ -36,7 +38,17 @@ interface ChildData {
   lastAttendance: string;
   status: 'present' | 'absent' | 'late';
   checkInTime?: string;
-  achievements: string[];
+  checkOutTime?: string;
+  teacher: string;
+  subjects: {
+    name: string;
+    attendance: number;
+    grade: string;
+  }[];
+  recentActivity: {
+    date: string;
+    status: 'present' | 'absent' | 'late';
+  }[];
 }
 
 interface Notification {
@@ -50,35 +62,69 @@ interface Notification {
 
 const ParentPortal: React.FC = () => {
   const [selectedChild, setSelectedChild] = useState<string>('1');
-  
+  const [activeTab, setActiveTab] = useState('overview');
+
+  // Hardcoded children data
   const [children] = useState<ChildData[]>([
     {
       id: '1',
-      name: 'Rajesh Kumar',
-      class: 'Class 8-A',
-      rollNumber: '001',
+      name: 'Aarav Sharma',
+      class: '8',
+      section: 'A',
+      rollNumber: '15',
       attendancePercentage: 92,
       presentDays: 165,
       totalDays: 180,
       currentStreak: 12,
-      lastAttendance: 'Today, 8:30 AM',
+      lastAttendance: '2024-01-29',
       status: 'present',
-      checkInTime: '8:30 AM',
-      achievements: ['Perfect Week', 'Early Bird', 'Consistency Champion']
+      checkInTime: '8:25 AM',
+      checkOutTime: '2:30 PM',
+      teacher: 'Mrs. Gurpreet Kaur',
+      subjects: [
+        { name: 'Mathematics', attendance: 95, grade: 'A' },
+        { name: 'Science', attendance: 92, grade: 'A' },
+        { name: 'English', attendance: 88, grade: 'B+' },
+        { name: 'Hindi', attendance: 90, grade: 'A' },
+        { name: 'Social Studies', attendance: 93, grade: 'A' },
+      ],
+      recentActivity: [
+        { date: '2024-01-29', status: 'present' },
+        { date: '2024-01-28', status: 'present' },
+        { date: '2024-01-27', status: 'present' },
+        { date: '2024-01-26', status: 'late' },
+        { date: '2024-01-25', status: 'present' },
+      ]
     },
     {
       id: '2',
-      name: 'Priya Kumar',
-      class: 'Class 5-B',
-      rollNumber: '045',
-      attendancePercentage: 96,
-      presentDays: 172,
+      name: 'Ananya Sharma',
+      class: '5',
+      section: 'B',
+      rollNumber: '22',
+      attendancePercentage: 88,
+      presentDays: 158,
       totalDays: 180,
-      currentStreak: 18,
-      lastAttendance: 'Today, 8:25 AM',
+      currentStreak: 5,
+      lastAttendance: '2024-01-29',
       status: 'present',
-      checkInTime: '8:25 AM',
-      achievements: ['Perfect Month', 'Punctuality Star', 'Top Performer']
+      checkInTime: '8:30 AM',
+      checkOutTime: '1:30 PM',
+      teacher: 'Mr. Rajinder Singh',
+      subjects: [
+        { name: 'Mathematics', attendance: 85, grade: 'B' },
+        { name: 'Science', attendance: 90, grade: 'A' },
+        { name: 'English', attendance: 87, grade: 'B+' },
+        { name: 'Hindi', attendance: 92, grade: 'A' },
+        { name: 'EVS', attendance: 88, grade: 'B+' },
+      ],
+      recentActivity: [
+        { date: '2024-01-29', status: 'present' },
+        { date: '2024-01-28', status: 'present' },
+        { date: '2024-01-27', status: 'absent' },
+        { date: '2024-01-26', status: 'present' },
+        { date: '2024-01-25', status: 'present' },
+      ]
     }
   ]);
 
@@ -86,366 +132,407 @@ const ParentPortal: React.FC = () => {
     {
       id: '1',
       type: 'attendance',
-      title: 'Rajesh marked present',
-      message: 'Your child has checked in successfully at 8:30 AM',
-      time: '30 minutes ago',
-      read: true
+      title: 'Child Marked Present',
+      message: 'Aarav has been marked present for today at 8:25 AM',
+      time: '2 hours ago',
+      read: false
     },
     {
       id: '2',
       type: 'achievement',
-      title: 'New Achievement Unlocked!',
-      message: 'Priya has earned the "Punctuality Star" badge for consistent early arrivals',
-      time: '2 hours ago',
+      title: 'Perfect Attendance Week',
+      message: 'Aarav has achieved perfect attendance this week!',
+      time: '1 day ago',
       read: false
     },
     {
       id: '3',
       type: 'announcement',
-      title: 'School Event Reminder',
-      message: 'Annual Sports Day scheduled for next Friday. Attendance is important.',
-      time: '1 day ago',
-      read: true
-    },
-    {
-      id: '4',
-      type: 'alert',
-      title: 'Attendance Below Target',
-      message: 'Monthly attendance is 85%. Encourage regular attendance to reach 90% target.',
+      title: 'Parent-Teacher Meeting',
+      message: 'PTM scheduled for February 5, 2024. Please confirm your attendance.',
       time: '3 days ago',
-      read: false
+      read: true
     }
   ]);
 
-  const currentChild = children.find(child => child.id === selectedChild) || children[0];
+  const currentChild = children.find(c => c.id === selectedChild) || children[0];
 
-  const getStatusIcon = (status: ChildData['status']) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
-      case 'present': return <CheckCircle className="h-5 w-5 text-success" />;
-      case 'absent': return <XCircle className="h-5 w-5 text-error" />;
-      case 'late': return <Clock className="h-5 w-5 text-warning" />;
+      case 'present': return 'bg-green-100 text-green-700 border-green-200';
+      case 'absent': return 'bg-red-100 text-red-700 border-red-200';
+      case 'late': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
+      default: return 'bg-gray-100 text-gray-700 border-gray-200';
     }
   };
 
-  const getNotificationIcon = (type: Notification['type']) => {
-    switch (type) {
-      case 'attendance': return <CheckCircle className="h-5 w-5 text-success" />;
-      case 'achievement': return <Award className="h-5 w-5 text-secondary" />;
-      case 'alert': return <AlertTriangle className="h-5 w-5 text-warning" />;
-      case 'announcement': return <Bell className="h-5 w-5 text-primary" />;
+  const getActivityIcon = (status: string) => {
+    switch (status) {
+      case 'present': return <CheckCircle className="w-4 h-4 text-green-500" />;
+      case 'absent': return <XCircle className="w-4 h-4 text-red-500" />;
+      case 'late': return <Clock className="w-4 h-4 text-yellow-500" />;
+      default: return null;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-warning/5 p-4">
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-warning to-secondary bg-clip-text text-transparent">
-              Parent Portal
-            </h1>
-            <p className="text-muted-foreground mt-1">
-              Monitor your child's attendance and progress
-            </p>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm">
-              <MessageCircle className="h-4 w-4 mr-2" />
-              Contact School
-            </Button>
-            <Button size="sm" className="bg-gradient-to-r from-warning to-secondary">
-              <Bell className="h-4 w-4 mr-2" />
-              Notifications ({notifications.filter(n => !n.read).length})
-            </Button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+      {/* Header */}
+      <div className="bg-white border-b border-slate-200">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900">Parent Portal</h1>
+              <p className="text-slate-500 mt-1">Welcome back, Mr. Sharma</p>
+            </div>
+            <div className="flex items-center gap-3">
+              {/* Child Selector */}
+              <select
+                value={selectedChild}
+                onChange={(e) => setSelectedChild(e.target.value)}
+                className="px-4 py-2 border border-slate-200 rounded-lg bg-white text-sm"
+              >
+                {children.map(child => (
+                  <option key={child.id} value={child.id}>
+                    {child.name} - Class {child.class}
+                  </option>
+                ))}
+              </select>
+
+              <Button variant="outline" size="sm" className="relative">
+                <Bell className="h-4 w-4" />
+                {notifications.filter(n => !n.read).length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                )}
+              </Button>
+
+              <Button size="sm" className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+                <Phone className="h-4 w-4 mr-2" />
+                Contact School
+              </Button>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Child Selector */}
-        <div className="flex gap-4 overflow-x-auto pb-2">
-          {children.map((child) => (
-            <Card 
-              key={child.id}
-              className={`min-w-[280px] cursor-pointer transition-all ${
-                selectedChild === child.id 
-                  ? 'ring-2 ring-warning shadow-strong bg-gradient-to-br from-warning/10 to-warning/5' 
-                  : 'hover:shadow-soft'
-              }`}
-              onClick={() => setSelectedChild(child.id)}
-            >
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-12 w-12">
-                    <AvatarImage src="" />
-                    <AvatarFallback className="bg-warning/10 text-warning">
-                      {child.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <h3 className="font-semibold">{child.name}</h3>
-                    <p className="text-sm text-muted-foreground">{child.class} • Roll {child.rollNumber}</p>
-                  </div>
-                  <div className="text-right">
-                    {getStatusIcon(child.status)}
-                    <p className="text-xs text-muted-foreground mt-1">{child.checkInTime}</p>
-                  </div>
+      <div className="container mx-auto px-4 py-8">
+        {/* Child Overview Card */}
+        <Card className="mb-8 border-0 shadow-xl bg-gradient-to-r from-white to-slate-50">
+          <div className="p-6">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg">
+                  {currentChild.name.split(' ').map(n => n[0]).join('')}
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900">{currentChild.name}</h2>
+                  <p className="text-slate-600">Class {currentChild.class}-{currentChild.section} • Roll No: {currentChild.rollNumber}</p>
+                  <p className="text-sm text-slate-500 mt-1">Class Teacher: {currentChild.teacher}</p>
+                </div>
+              </div>
 
-        {/* Main Content */}
-        <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="attendance">Attendance History</TabsTrigger>
-            <TabsTrigger value="achievements">Achievements</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
+              <div className="flex flex-wrap gap-4">
+                <div className="text-center px-6 py-3 bg-white rounded-xl shadow-sm">
+                  <div className="text-2xl font-bold text-slate-900">{currentChild.attendancePercentage}%</div>
+                  <div className="text-xs text-slate-500">Attendance</div>
+                </div>
+                <div className="text-center px-6 py-3 bg-white rounded-xl shadow-sm">
+                  <div className="text-2xl font-bold text-green-600">{currentChild.currentStreak}</div>
+                  <div className="text-xs text-slate-500">Day Streak</div>
+                </div>
+                <div className={`px-4 py-3 rounded-xl border ${getStatusColor(currentChild.status)}`}>
+                  <div className="text-sm font-semibold">Today: {currentChild.status.toUpperCase()}</div>
+                  {currentChild.checkInTime && (
+                    <div className="text-xs mt-1">In: {currentChild.checkInTime}</div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Main Content Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="bg-white/50 backdrop-blur-sm p-1 rounded-xl shadow-sm">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-white data-[state=active]:shadow rounded-lg">
+              <Home className="w-4 h-4 mr-2" />
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="attendance" className="data-[state=active]:bg-white data-[state=active]:shadow rounded-lg">
+              <Calendar className="w-4 h-4 mr-2" />
+              Attendance
+            </TabsTrigger>
+            <TabsTrigger value="performance" className="data-[state=active]:bg-white data-[state=active]:shadow rounded-lg">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Performance
+            </TabsTrigger>
+            <TabsTrigger value="notifications" className="data-[state=active]:bg-white data-[state=active]:shadow rounded-lg">
+              <Bell className="w-4 h-4 mr-2" />
+              Notifications
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview">
+          <TabsContent value="overview" className="space-y-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Today's Status */}
-              <Card className="md:col-span-2 shadow-strong">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Heart className="h-5 w-5 text-error" />
-                    Today's Status - {currentChild.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between p-4 bg-success/10 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        {getStatusIcon(currentChild.status)}
-                        <div>
-                          <h4 className="font-semibold text-success">Present at School</h4>
-                          <p className="text-sm text-muted-foreground">
-                            Checked in at {currentChild.checkInTime} - On time!
-                          </p>
-                        </div>
-                      </div>
-                      <Badge variant="outline" className="bg-success/10 text-success border-success/20">
-                        {currentChild.status.charAt(0).toUpperCase() + currentChild.status.slice(1)}
-                      </Badge>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="text-center p-4 bg-primary/10 rounded-lg">
-                        <BookOpen className="h-8 w-8 mx-auto text-primary mb-2" />
-                        <p className="text-2xl font-bold">{currentChild.attendancePercentage}%</p>
-                        <p className="text-sm text-muted-foreground">Attendance Rate</p>
-                      </div>
-                      
-                      <div className="text-center p-4 bg-secondary/10 rounded-lg">
-                        <Target className="h-8 w-8 mx-auto text-secondary mb-2" />
-                        <p className="text-2xl font-bold">{currentChild.currentStreak}</p>
-                        <p className="text-sm text-muted-foreground">Day Streak</p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-sm">Monthly Progress</span>
-                        <span className="text-sm font-medium">{currentChild.presentDays}/{currentChild.totalDays} days</span>
-                      </div>
-                      <Progress value={currentChild.attendancePercentage} className="h-3" />
-                      <p className="text-xs text-muted-foreground">
-                        Excellent attendance! Keep up the great work.
-                      </p>
-                    </div>
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-slate-900">Today's Status</h3>
+                    <Activity className="w-5 h-5 text-slate-400" />
                   </div>
-                </CardContent>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100">
+                      <span className="text-sm text-slate-600">Status</span>
+                      <span className={`text-sm font-semibold px-3 py-1 rounded-full ${
+                        currentChild.status === 'present' ? 'bg-green-100 text-green-700' :
+                        currentChild.status === 'absent' ? 'bg-red-100 text-red-700' :
+                        'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        {currentChild.status.toUpperCase()}
+                      </span>
+                    </div>
+                    {currentChild.checkInTime && (
+                      <>
+                        <div className="flex justify-between items-center py-2 border-b border-slate-100">
+                          <span className="text-sm text-slate-600">Check In</span>
+                          <span className="text-sm font-medium">{currentChild.checkInTime}</span>
+                        </div>
+                        <div className="flex justify-between items-center py-2">
+                          <span className="text-sm text-slate-600">Check Out</span>
+                          <span className="text-sm font-medium">{currentChild.checkOutTime || '-'}</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
               </Card>
 
-              {/* Quick Actions */}
-              <Card className="shadow-strong">
-                <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button variant="outline" className="w-full justify-start">
-                    <Phone className="h-4 w-4 mr-2" />
-                    Call School
+              {/* Attendance Summary */}
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-slate-900">Attendance Summary</h3>
+                    <Calendar className="w-5 h-5 text-slate-400" />
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-slate-600">Overall</span>
+                        <span className="font-medium">{currentChild.attendancePercentage}%</span>
+                      </div>
+                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
+                          style={{ width: `${currentChild.attendancePercentage}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                    <div className="pt-2">
+                      <div className="text-2xl font-bold text-slate-900">
+                        {currentChild.presentDays}/{currentChild.totalDays}
+                      </div>
+                      <div className="text-xs text-slate-500">Days Present / Total Days</div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Achievements */}
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-slate-900">Achievements</h3>
+                    <Award className="w-5 h-5 text-yellow-500" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-3 bg-yellow-50 rounded-lg">
+                      <Star className="w-5 h-5 text-yellow-500" />
+                      <div>
+                        <div className="text-sm font-medium text-slate-900">Perfect Week</div>
+                        <div className="text-xs text-slate-500">5 days streak</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                      <Target className="w-5 h-5 text-green-500" />
+                      <div>
+                        <div className="text-sm font-medium text-slate-900">Top Attendance</div>
+                        <div className="text-xs text-slate-500">Above 90%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* Recent Activity */}
+            <Card className="border-0 shadow-lg">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-4">Recent Activity</h3>
+                <div className="space-y-3">
+                  {currentChild.recentActivity.map((activity, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        {getActivityIcon(activity.status)}
+                        <div>
+                          <div className="text-sm font-medium text-slate-900">
+                            {new Date(activity.date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
+                          </div>
+                          <div className="text-xs text-slate-500 capitalize">{activity.status}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="attendance" className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-semibold text-slate-900">Monthly Attendance View</h3>
+                  <Button variant="outline" size="sm">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Report
                   </Button>
-                  
-                  <Button variant="outline" className="w-full justify-start">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Message Teacher
-                  </Button>
-                  
-                  <Button variant="outline" className="w-full justify-start">
-                    <MapPin className="h-4 w-4 mr-2" />
-                    School Location
-                  </Button>
-                  
-                  <Button variant="outline" className="w-full justify-start text-error hover:text-error">
-                    <Shield className="h-4 w-4 mr-2" />
-                    Emergency Contact
-                  </Button>
-                </CardContent>
+                </div>
+
+                {/* Calendar Grid - Simplified */}
+                <div className="grid grid-cols-7 gap-2">
+                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                    <div key={day} className="text-center text-xs font-medium text-slate-600 py-2">
+                      {day}
+                    </div>
+                  ))}
+                  {/* Sample calendar days */}
+                  {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
+                    <div
+                      key={day}
+                      className={`aspect-square flex items-center justify-center rounded-lg text-sm ${
+                        day <= 29
+                          ? day % 7 === 0 || day % 7 === 6
+                            ? 'bg-slate-50'
+                            : Math.random() > 0.2
+                            ? 'bg-green-100 text-green-700 font-medium'
+                            : 'bg-red-100 text-red-700 font-medium'
+                          : 'bg-white text-slate-300'
+                      }`}
+                    >
+                      {day}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-6 mt-6 justify-center">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-green-100 rounded"></div>
+                    <span className="text-sm text-slate-600">Present</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-red-100 rounded"></div>
+                    <span className="text-sm text-slate-600">Absent</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-yellow-100 rounded"></div>
+                    <span className="text-sm text-slate-600">Late</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-slate-50 rounded"></div>
+                    <span className="text-sm text-slate-600">Holiday</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="performance" className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Subject-wise Attendance</h3>
+                  <div className="space-y-4">
+                    {currentChild.subjects.map((subject, index) => (
+                      <div key={index}>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-sm font-medium text-slate-700">{subject.name}</span>
+                          <span className="text-sm text-slate-600">{subject.attendance}%</span>
+                        </div>
+                        <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                          <div
+                            className={`h-full rounded-full ${
+                              subject.attendance >= 90 ? 'bg-green-500' :
+                              subject.attendance >= 75 ? 'bg-yellow-500' : 'bg-red-500'
+                            }`}
+                            style={{ width: `${subject.attendance}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Academic Performance</h3>
+                  <div className="space-y-3">
+                    {currentChild.subjects.map((subject, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <BookOpen className="w-4 h-4 text-slate-400" />
+                          <span className="text-sm font-medium text-slate-700">{subject.name}</span>
+                        </div>
+                        <span className={`text-lg font-bold ${
+                          subject.grade.startsWith('A') ? 'text-green-600' :
+                          subject.grade.startsWith('B') ? 'text-blue-600' : 'text-yellow-600'
+                        }`}>
+                          {subject.grade}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </Card>
             </div>
           </TabsContent>
 
-          <TabsContent value="attendance">
-            <Card className="shadow-strong">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-primary" />
-                  Attendance History - {currentChild.name}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {/* Weekly Overview */}
-                  <div className="grid grid-cols-7 gap-2 mb-6">
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
-                      <div key={day} className="text-center">
-                        <p className="text-xs text-muted-foreground mb-1">{day}</p>
-                        <div className={`h-8 w-8 mx-auto rounded-full flex items-center justify-center text-xs font-medium ${
-                          index < 5 ? (index === 4 ? 'bg-success text-success-foreground' : 'bg-success text-success-foreground') :
-                          'bg-muted text-muted-foreground'
-                        }`}>
-                          {index < 5 ? '✓' : '—'}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Monthly Stats */}
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div className="text-center p-4 bg-success/10 rounded-lg">
-                      <CheckCircle className="h-8 w-8 mx-auto text-success mb-2" />
-                      <p className="text-2xl font-bold">{currentChild.presentDays}</p>
-                      <p className="text-sm text-muted-foreground">Present Days</p>
-                    </div>
-                    
-                    <div className="text-center p-4 bg-error/10 rounded-lg">
-                      <XCircle className="h-8 w-8 mx-auto text-error mb-2" />
-                      <p className="text-2xl font-bold">{currentChild.totalDays - currentChild.presentDays}</p>
-                      <p className="text-sm text-muted-foreground">Absent Days</p>
-                    </div>
-                    
-                    <div className="text-center p-4 bg-primary/10 rounded-lg">
-                      <TrendingUp className="h-8 w-8 mx-auto text-primary mb-2" />
-                      <p className="text-2xl font-bold">+5%</p>
-                      <p className="text-sm text-muted-foreground">vs Last Month</p>
-                    </div>
-                  </div>
-
-                  {/* Recent Activity */}
-                  <div className="space-y-3">
-                    <h4 className="font-semibold">Recent Activity</h4>
-                    {[
-                      { date: 'Today', status: 'present', time: '8:30 AM', note: 'On time' },
-                      { date: 'Yesterday', status: 'present', time: '8:25 AM', note: 'Early arrival' },
-                      { date: 'Monday', status: 'present', time: '8:35 AM', note: 'Slightly late' },
-                      { date: 'Friday', status: 'present', time: '8:20 AM', note: 'Early arrival' },
-                      { date: 'Thursday', status: 'absent', time: '—', note: 'Medical leave' },
-                    ].map((record, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                        <div className="flex items-center gap-3">
-                          {getStatusIcon(record.status as ChildData['status'])}
-                          <div>
-                            <p className="font-medium">{record.date}</p>
-                            <p className="text-sm text-muted-foreground">{record.note}</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-medium">{record.time}</p>
-                          <Badge variant={record.status === 'present' ? 'outline' : 'destructive'} className="text-xs">
-                            {record.status}
-                          </Badge>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="achievements">
-            <Card className="shadow-strong">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Award className="h-5 w-5 text-secondary" />
-                  Achievements & Badges - {currentChild.name}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {currentChild.achievements.map((achievement, index) => (
-                    <Card key={index} className="bg-gradient-to-br from-secondary/10 to-secondary/5 border-secondary/20">
-                      <CardContent className="p-4 text-center">
-                        <Award className="h-12 w-12 mx-auto text-secondary mb-3" />
-                        <h4 className="font-semibold mb-2">{achievement}</h4>
-                        <Badge variant="outline" className="bg-secondary/10 text-secondary border-secondary/20">
-                          Earned
-                        </Badge>
-                      </CardContent>
-                    </Card>
-                  ))}
-                  
-                  {/* Progress towards next achievement */}
-                  <Card className="bg-gradient-to-br from-warning/10 to-warning/5 border-warning/20">
-                    <CardContent className="p-4 text-center">
-                      <Target className="h-12 w-12 mx-auto text-warning mb-3" />
-                      <h4 className="font-semibold mb-2">Perfect Month</h4>
-                      <div className="space-y-2">
-                        <Progress value={75} className="h-2" />
-                        <p className="text-xs text-muted-foreground">6 more days to unlock</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="notifications">
-            <Card className="shadow-strong">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Bell className="h-5 w-5 text-primary" />
-                  Notifications & Updates
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+          <TabsContent value="notifications" className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-4">Recent Notifications</h3>
                 <div className="space-y-3">
-                  {notifications.map((notification) => (
-                    <div 
-                      key={notification.id} 
-                      className={`p-4 rounded-lg border transition-all ${
-                        notification.read 
-                          ? 'bg-muted/30 border-border' 
-                          : 'bg-primary/5 border-primary/20'
+                  {notifications.map(notification => (
+                    <div
+                      key={notification.id}
+                      className={`p-4 rounded-lg border ${
+                        notification.read ? 'bg-white border-slate-200' : 'bg-blue-50 border-blue-200'
                       }`}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="p-2 rounded-lg bg-background">
-                          {getNotificationIcon(notification.type)}
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                          notification.type === 'attendance' ? 'bg-blue-100' :
+                          notification.type === 'achievement' ? 'bg-yellow-100' :
+                          notification.type === 'alert' ? 'bg-red-100' : 'bg-green-100'
+                        }`}>
+                          {notification.type === 'attendance' && <Calendar className="w-4 h-4 text-blue-600" />}
+                          {notification.type === 'achievement' && <Award className="w-4 h-4 text-yellow-600" />}
+                          {notification.type === 'alert' && <AlertCircle className="w-4 h-4 text-red-600" />}
+                          {notification.type === 'announcement' && <Bell className="w-4 h-4 text-green-600" />}
                         </div>
                         <div className="flex-1">
-                          <div className="flex items-center justify-between mb-1">
-                            <h4 className="font-semibold">{notification.title}</h4>
-                            <span className="text-xs text-muted-foreground">{notification.time}</span>
+                          <div className="flex items-center justify-between">
+                            <h4 className="font-medium text-slate-900">{notification.title}</h4>
+                            <span className="text-xs text-slate-500">{notification.time}</span>
                           </div>
-                          <p className="text-sm text-muted-foreground">{notification.message}</p>
-                          {!notification.read && (
-                            <Badge variant="outline" className="mt-2 bg-primary/10 text-primary border-primary/20">
-                              New
-                            </Badge>
-                          )}
+                          <p className="text-sm text-slate-600 mt-1">{notification.message}</p>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-              </CardContent>
+              </div>
             </Card>
           </TabsContent>
         </Tabs>

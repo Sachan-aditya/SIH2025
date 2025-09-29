@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 // Role-based Components
 import TeacherDashboard from "./components/AttendanceSystem/TeacherDashboard";
 import AdminDashboard from "./components/AttendanceSystem/AdminDashboard";
+import GovernmentPortal from "./components/AttendanceSystem/GovernmentPortal";
 import ParentPortal from "./components/AttendanceSystem/ParentPortal";
 import StudentInterface from "./components/AttendanceSystem/StudentInterface";
 
@@ -38,7 +39,8 @@ const App = () => (
 
           {/* Role-based Routes */}
           <Route path="/teacher" component={TeacherDashboard} />
-          <Route path="/admin" component={AdminDashboard} />
+          <Route path="/admin" component={GovernmentPortal} />
+          <Route path="/government" component={GovernmentPortal} />
           <Route path="/parent" component={ParentPortal} />
           <Route path="/student" component={StudentInterface} />
 

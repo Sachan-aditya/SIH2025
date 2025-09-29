@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Progress } from '@/components/ui/progress';
-import { 
-  Camera, 
-  QrCode, 
-  CheckCircle, 
+import { Card } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Camera,
+  QrCode,
+  CheckCircle,
   Calendar,
   Trophy,
   Star,
@@ -18,20 +16,44 @@ import {
   Zap,
   Shield,
   BookOpen,
-  AlertCircle
+  AlertCircle,
+  User,
+  Home,
+  BarChart,
+  Flame,
+  Gift,
+  Medal,
+  Crown
 } from 'lucide-react';
 
 interface StudentData {
   name: string;
   rollNumber: string;
   class: string;
+  section: string;
   attendancePercentage: number;
   streak: number;
   rank: number;
   totalDaysPresent: number;
   totalDays: number;
-  badges: string[];
-  lastCheckedIn?: string;
+  points: number;
+  level: number;
+  badges: {
+    id: string;
+    name: string;
+    icon: string;
+    earned: boolean;
+    description: string;
+  }[];
+  subjects: {
+    name: string;
+    attendance: number;
+    nextClass: string;
+  }[];
+  weeklyAttendance: {
+    day: string;
+    status: 'present' | 'absent' | 'holiday' | 'upcoming';
+  }[];
 }
 
 interface Achievement {
@@ -40,342 +62,469 @@ interface Achievement {
   description: string;
   icon: React.ReactNode;
   unlocked: boolean;
-  progress?: number;
-  maxProgress?: number;
+  progress: number;
+  maxProgress: number;
+  points: number;
 }
 
 const StudentInterface: React.FC = () => {
   const [isCheckingIn, setIsCheckingIn] = useState(false);
   const [checkedInToday, setCheckedInToday] = useState(false);
   const [checkInMethod, setCheckInMethod] = useState<'face' | 'qr' | null>(null);
+  const [activeTab, setActiveTab] = useState('home');
+  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
 
+  // Hardcoded student data
   const [studentData] = useState<StudentData>({
-    name: 'Rajesh Kumar',
-    rollNumber: '001',
-    class: 'Class 8-A',
+    name: 'Rahul Kumar',
+    rollNumber: '2024001',
+    class: '8',
+    section: 'A',
     attendancePercentage: 92,
-    streak: 12,
-    rank: 2,
+    streak: 15,
+    rank: 3,
     totalDaysPresent: 165,
     totalDays: 180,
-    badges: ['Perfect Week', 'Early Bird', 'Consistency Champion'],
-    lastCheckedIn: '8:30 AM'
+    points: 2450,
+    level: 12,
+    badges: [
+      { id: '1', name: 'Perfect Week', icon: '⭐', earned: true, description: '5 days perfect attendance' },
+      { id: '2', name: 'Early Bird', icon: '🌅', earned: true, description: 'Check in before 8:30 AM' },
+      { id: '3', name: 'Consistent', icon: '🎯', earned: true, description: '30 days streak' },
+      { id: '4', name: 'Top Student', icon: '👑', earned: false, description: 'Rank 1 in class' },
+      { id: '5', name: 'Perfect Month', icon: '🏆', earned: false, description: 'No absence in a month' },
+      { id: '6', name: 'Super Streak', icon: '🔥', earned: false, description: '50 days streak' }
+    ],
+    subjects: [
+      { name: 'Mathematics', attendance: 95, nextClass: '9:00 AM' },
+      { name: 'Science', attendance: 92, nextClass: '10:00 AM' },
+      { name: 'English', attendance: 88, nextClass: '11:00 AM' },
+      { name: 'Hindi', attendance: 90, nextClass: '12:00 PM' },
+      { name: 'Social Studies', attendance: 93, nextClass: '2:00 PM' }
+    ],
+    weeklyAttendance: [
+      { day: 'Mon', status: 'present' },
+      { day: 'Tue', status: 'present' },
+      { day: 'Wed', status: 'present' },
+      { day: 'Thu', status: 'present' },
+      { day: 'Fri', status: 'present' },
+      { day: 'Sat', status: 'holiday' },
+      { day: 'Sun', status: 'holiday' }
+    ]
   });
 
   const [achievements] = useState<Achievement[]>([
     {
       id: '1',
-      title: 'Perfect Week',
-      description: 'Attend all 5 days in a week',
-      icon: <Star className="h-6 w-6" />,
+      title: 'Attendance Champion',
+      description: 'Maintain 90%+ attendance',
+      icon: <Trophy className="w-5 h-5" />,
       unlocked: true,
+      progress: 92,
+      maxProgress: 90,
+      points: 100
     },
     {
       id: '2',
-      title: 'Early Bird',
-      description: 'Arrive before 8:30 AM for 10 consecutive days',
-      icon: <Clock className="h-6 w-6" />,
-      unlocked: true,
+      title: 'Streak Master',
+      description: 'Achieve 30 days streak',
+      icon: <Flame className="w-5 h-5" />,
+      unlocked: false,
+      progress: 15,
+      maxProgress: 30,
+      points: 150
     },
     {
       id: '3',
-      title: 'Streak Master',
-      description: 'Maintain 30-day perfect attendance',
-      icon: <Zap className="h-6 w-6" />,
-      unlocked: false,
-      progress: 12,
-      maxProgress: 30,
+      title: 'Early Riser',
+      description: 'Check in before 8:30 AM for 10 days',
+      icon: <Star className="w-5 h-5" />,
+      unlocked: true,
+      progress: 10,
+      maxProgress: 10,
+      points: 50
     },
     {
       id: '4',
-      title: 'Class Champion',
-      description: 'Achieve top 3 attendance in class',
-      icon: <Trophy className="h-6 w-6" />,
-      unlocked: true,
-    },
-    {
-      id: '5',
-      title: 'Reliability Shield',
-      description: 'Zero absent days in a month',
-      icon: <Shield className="h-6 w-6" />,
+      title: 'Perfect Month',
+      description: 'No absence for entire month',
+      icon: <Medal className="w-5 h-5" />,
       unlocked: false,
-      progress: 18,
-      maxProgress: 22,
-    },
+      progress: 20,
+      maxProgress: 30,
+      points: 200
+    }
   ]);
 
   const handleCheckIn = async (method: 'face' | 'qr') => {
     setIsCheckingIn(true);
     setCheckInMethod(method);
-    
+
     // Simulate check-in process
     setTimeout(() => {
-      setCheckedInToday(true);
       setIsCheckingIn(false);
-      setCheckInMethod(null);
+      setCheckedInToday(true);
+      setShowSuccessAnimation(true);
+      setTimeout(() => setShowSuccessAnimation(false), 3000);
     }, 2000);
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-secondary/5 p-4">
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-secondary bg-clip-text text-transparent">
-            Smart Attendance
-          </h1>
-          <p className="text-muted-foreground">
-            Government Senior Secondary School, Village Kamboj
-          </p>
-        </div>
+  const getLevelProgress = () => {
+    return (studentData.points % 250) / 250 * 100;
+  };
 
-        {/* Student Profile Card */}
-        <Card className="shadow-strong bg-gradient-to-r from-card to-primary/5">
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <Avatar className="h-24 w-24 border-4 border-primary/20">
-                <AvatarImage src="" />
-                <AvatarFallback className="text-2xl bg-primary/10 text-primary">
-                  {studentData.name.split(' ').map(n => n[0]).join('')}
-                </AvatarFallback>
-              </Avatar>
-              
-              <div className="flex-1 text-center md:text-left space-y-2">
-                <h2 className="text-2xl font-bold">{studentData.name}</h2>
-                <p className="text-muted-foreground">Roll No: {studentData.rollNumber} | {studentData.class}</p>
-                
-                <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3">
-                  {studentData.badges.map((badge, index) => (
-                    <Badge key={index} variant="secondary" className="bg-success/10 text-success">
-                      <Award className="h-3 w-3 mr-1" />
-                      {badge}
-                    </Badge>
+  const getNextLevelPoints = () => {
+    return 250 - (studentData.points % 250);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      {/* Student Header */}
+      <div className="bg-white border-b border-slate-200">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                {studentData.name.split(' ').map(n => n[0]).join('')}
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900">{studentData.name}</h1>
+                <p className="text-slate-600">Class {studentData.class}-{studentData.section} • Roll No: {studentData.rollNumber}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              {/* Level Badge */}
+              <div className="text-center">
+                <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full">
+                  <Crown className="w-5 h-5 text-purple-600" />
+                  <span className="font-bold text-purple-900">Level {studentData.level}</span>
+                </div>
+              </div>
+              {/* Points */}
+              <div className="text-center">
+                <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-full">
+                  <Zap className="w-5 h-5 text-orange-600" />
+                  <span className="font-bold text-orange-900">{studentData.points} Points</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Stats Bar */}
+      <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-4">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center">
+              <div className="text-2xl font-bold">{studentData.attendancePercentage}%</div>
+              <div className="text-xs opacity-90">Attendance</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold flex items-center justify-center gap-1">
+                <Flame className="w-5 h-5" />
+                {studentData.streak}
+              </div>
+              <div className="text-xs opacity-90">Day Streak</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold">#{studentData.rank}</div>
+              <div className="text-xs opacity-90">Class Rank</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold">{studentData.badges.filter(b => b.earned).length}</div>
+              <div className="text-xs opacity-90">Badges Earned</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        {/* Check-in Card */}
+        {!checkedInToday && (
+          <Card className="mb-8 border-0 shadow-xl bg-gradient-to-r from-white to-purple-50">
+            <div className="p-6">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Mark Your Attendance</h2>
+                <p className="text-slate-600 mb-6">Choose your preferred check-in method</p>
+
+                <div className="grid md:grid-cols-2 gap-4 max-w-md mx-auto">
+                  <button
+                    onClick={() => handleCheckIn('face')}
+                    disabled={isCheckingIn}
+                    className="group relative bg-gradient-to-br from-blue-500 to-purple-500 text-white p-8 rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 disabled:opacity-50"
+                  >
+                    <Camera className="w-12 h-12 mx-auto mb-3" />
+                    <div className="font-semibold">Face Recognition</div>
+                    <div className="text-xs opacity-90 mt-1">Quick & Secure</div>
+                  </button>
+
+                  <button
+                    onClick={() => handleCheckIn('qr')}
+                    disabled={isCheckingIn}
+                    className="group relative bg-gradient-to-br from-green-500 to-teal-500 text-white p-8 rounded-2xl hover:shadow-2xl transition-all transform hover:scale-105 disabled:opacity-50"
+                  >
+                    <QrCode className="w-12 h-12 mx-auto mb-3" />
+                    <div className="font-semibold">QR Code Scan</div>
+                    <div className="text-xs opacity-90 mt-1">Show Your Code</div>
+                  </button>
+                </div>
+
+                {isCheckingIn && (
+                  <div className="mt-6 text-purple-600 font-medium animate-pulse">
+                    {checkInMethod === 'face' ? 'Scanning your face...' : 'Reading QR code...'}
+                  </div>
+                )}
+              </div>
+            </div>
+          </Card>
+        )}
+
+        {/* Success Message */}
+        {checkedInToday && showSuccessAnimation && (
+          <Card className="mb-8 border-0 shadow-xl bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200">
+            <div className="p-6 text-center">
+              <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4 animate-bounce" />
+              <h2 className="text-2xl font-bold text-green-900">Attendance Marked!</h2>
+              <p className="text-green-700 mt-2">Great job! Keep up the streak 🔥</p>
+              <p className="text-sm text-green-600 mt-4">+50 points earned</p>
+            </div>
+          </Card>
+        )}
+
+        {/* Main Content Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="bg-white/50 backdrop-blur-sm p-1 rounded-xl shadow-sm">
+            <TabsTrigger value="home" className="data-[state=active]:bg-white data-[state=active]:shadow rounded-lg">
+              <Home className="w-4 h-4 mr-2" />
+              Home
+            </TabsTrigger>
+            <TabsTrigger value="schedule" className="data-[state=active]:bg-white data-[state=active]:shadow rounded-lg">
+              <Calendar className="w-4 h-4 mr-2" />
+              Schedule
+            </TabsTrigger>
+            <TabsTrigger value="achievements" className="data-[state=active]:bg-white data-[state=active]:shadow rounded-lg">
+              <Trophy className="w-4 h-4 mr-2" />
+              Achievements
+            </TabsTrigger>
+            <TabsTrigger value="stats" className="data-[state=active]:bg-white data-[state=active]:shadow rounded-lg">
+              <BarChart className="w-4 h-4 mr-2" />
+              Stats
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="home" className="space-y-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Today's Classes */}
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Today's Classes</h3>
+                  <div className="space-y-3">
+                    {studentData.subjects.slice(0, 3).map((subject, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <BookOpen className="w-4 h-4 text-slate-400" />
+                          <div>
+                            <div className="text-sm font-medium text-slate-900">{subject.name}</div>
+                            <div className="text-xs text-slate-500">{subject.nextClass}</div>
+                          </div>
+                        </div>
+                        <div className="text-xs font-medium text-green-600">{subject.attendance}%</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+
+              {/* Weekly Progress */}
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">This Week</h3>
+                  <div className="grid grid-cols-7 gap-2">
+                    {studentData.weeklyAttendance.map((day, index) => (
+                      <div key={index} className="text-center">
+                        <div className="text-xs text-slate-600 mb-1">{day.day}</div>
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mx-auto ${
+                          day.status === 'present' ? 'bg-green-100' :
+                          day.status === 'absent' ? 'bg-red-100' :
+                          day.status === 'holiday' ? 'bg-slate-100' : 'bg-white border border-slate-200'
+                        }`}>
+                          {day.status === 'present' && <CheckCircle className="w-5 h-5 text-green-500" />}
+                          {day.status === 'absent' && <AlertCircle className="w-5 h-5 text-red-500" />}
+                          {day.status === 'holiday' && <span className="text-xs">🏖️</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+
+              {/* Level Progress */}
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-pink-50">
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Level Progress</h3>
+                  <div className="text-center mb-4">
+                    <div className="text-4xl font-bold text-purple-600">Level {studentData.level}</div>
+                    <div className="text-sm text-slate-600 mt-1">{getNextLevelPoints()} points to next level</div>
+                  </div>
+                  <div className="h-3 bg-white rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all"
+                      style={{ width: `${getLevelProgress()}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* Recent Badges */}
+            <Card className="border-0 shadow-lg">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-4">Your Badges</h3>
+                <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+                  {studentData.badges.map((badge) => (
+                    <div
+                      key={badge.id}
+                      className={`text-center p-4 rounded-xl transition-all ${
+                        badge.earned
+                          ? 'bg-gradient-to-br from-yellow-100 to-orange-100 transform hover:scale-110'
+                          : 'bg-slate-100 opacity-50'
+                      }`}
+                    >
+                      <div className="text-3xl mb-2">{badge.icon}</div>
+                      <div className="text-xs font-medium text-slate-700">{badge.name}</div>
+                    </div>
                   ))}
                 </div>
               </div>
+            </Card>
+          </TabsContent>
 
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div className="space-y-1">
-                  <p className="text-3xl font-bold text-primary">{studentData.attendancePercentage}%</p>
-                  <p className="text-sm text-muted-foreground">Attendance</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-3xl font-bold text-secondary">{studentData.streak}</p>
-                  <p className="text-sm text-muted-foreground">Day Streak</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Check-in Interface */}
-        <Card className="shadow-strong">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-center gap-2">
-              <Target className="h-5 w-5 text-primary" />
-              Mark Your Attendance
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {checkedInToday ? (
-              <div className="text-center space-y-4 py-8">
-                <div className="h-20 w-20 bg-success/10 rounded-full flex items-center justify-center mx-auto">
-                  <CheckCircle className="h-10 w-10 text-success animate-pulse-success" />
-                </div>
-                <h3 className="text-xl font-semibold text-success">Attendance Marked Successfully!</h3>
-                <p className="text-muted-foreground">Checked in at {studentData.lastCheckedIn || 'just now'}</p>
-                <Badge variant="outline" className="bg-success/10 text-success">
-                  Present Today
-                </Badge>
-              </div>
-            ) : (
-              <div className="space-y-6">
-                <div className="text-center space-y-2">
-                  <h3 className="text-lg font-semibold">Choose your check-in method</h3>
-                  <p className="text-muted-foreground">Select the method that works best for you</p>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  {/* Face Recognition */}
-                  <Card 
-                    className={`cursor-pointer transition-all hover:scale-105 hover:shadow-glow ${
-                      isCheckingIn && checkInMethod === 'face' 
-                        ? 'bg-gradient-primary text-primary-foreground border-primary' 
-                        : 'bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20 hover:border-primary/40'
-                    }`}
-                    onClick={() => !isCheckingIn && handleCheckIn('face')}
-                  >
-                    <CardContent className="p-6 text-center space-y-4">
-                      <div className="h-16 w-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
-                        <Camera className={`h-8 w-8 ${isCheckingIn && checkInMethod === 'face' ? 'animate-pulse' : ''}`} />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">Face Recognition</h4>
-                        <p className={`text-sm ${isCheckingIn && checkInMethod === 'face' ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
-                          {isCheckingIn && checkInMethod === 'face' ? 'Recognizing face...' : 'Look at the camera to check in'}
-                        </p>
-                      </div>
-                      {isCheckingIn && checkInMethod === 'face' && (
-                        <div className="w-full bg-primary-foreground/20 rounded-full h-2">
-                          <div className="bg-primary-foreground h-2 rounded-full animate-pulse" style={{ width: '70%' }}></div>
+          <TabsContent value="schedule" className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-6">Class Schedule</h3>
+                <div className="space-y-4">
+                  {studentData.subjects.map((subject, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold">
+                          {index + 1}
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
-
-                  {/* QR Code Scan */}
-                  <Card 
-                    className={`cursor-pointer transition-all hover:scale-105 hover:shadow-glow ${
-                      isCheckingIn && checkInMethod === 'qr' 
-                        ? 'bg-gradient-secondary text-secondary-foreground border-secondary' 
-                        : 'bg-gradient-to-br from-secondary/10 to-secondary/5 border-secondary/20 hover:border-secondary/40'
-                    }`}
-                    onClick={() => !isCheckingIn && handleCheckIn('qr')}
-                  >
-                    <CardContent className="p-6 text-center space-y-4">
-                      <div className="h-16 w-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto">
-                        <QrCode className={`h-8 w-8 ${isCheckingIn && checkInMethod === 'qr' ? 'animate-pulse' : ''}`} />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">QR Code Scan</h4>
-                        <p className={`text-sm ${isCheckingIn && checkInMethod === 'qr' ? 'text-secondary-foreground/80' : 'text-muted-foreground'}`}>
-                          {isCheckingIn && checkInMethod === 'qr' ? 'Scanning QR code...' : 'Scan your student QR code'}
-                        </p>
-                      </div>
-                      {isCheckingIn && checkInMethod === 'qr' && (
-                        <div className="w-full bg-secondary-foreground/20 rounded-full h-2">
-                          <div className="bg-secondary-foreground h-2 rounded-full animate-pulse" style={{ width: '70%' }}></div>
+                        <div>
+                          <div className="font-medium text-slate-900">{subject.name}</div>
+                          <div className="text-sm text-slate-500">Time: {subject.nextClass}</div>
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </div>
-
-                <div className="text-center">
-                  <p className="text-sm text-muted-foreground">
-                    Having trouble? Ask your teacher for manual attendance marking
-                  </p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-medium text-slate-900">{subject.attendance}%</div>
+                        <div className="text-xs text-slate-500">Attendance</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            )}
-          </CardContent>
-        </Card>
+            </Card>
+          </TabsContent>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="text-center shadow-soft">
-            <CardContent className="p-4">
-              <div className="space-y-2">
-                <TrendingUp className="h-8 w-8 mx-auto text-primary" />
-                <p className="text-2xl font-bold">{studentData.rank}</p>
-                <p className="text-sm text-muted-foreground">Class Rank</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center shadow-soft">
-            <CardContent className="p-4">
-              <div className="space-y-2">
-                <Calendar className="h-8 w-8 mx-auto text-success" />
-                <p className="text-2xl font-bold">{studentData.totalDaysPresent}</p>
-                <p className="text-sm text-muted-foreground">Days Present</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center shadow-soft">
-            <CardContent className="p-4">
-              <div className="space-y-2">
-                <Zap className="h-8 w-8 mx-auto text-warning" />
-                <p className="text-2xl font-bold">{studentData.streak}</p>
-                <p className="text-sm text-muted-foreground">Day Streak</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center shadow-soft">
-            <CardContent className="p-4">
-              <div className="space-y-2">
-                <BookOpen className="h-8 w-8 mx-auto text-secondary" />
-                <p className="text-2xl font-bold">{studentData.totalDays}</p>
-                <p className="text-sm text-muted-foreground">Total Days</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Achievements Section */}
-        <Card className="shadow-strong">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Trophy className="h-5 w-5 text-primary" />
-              Achievements & Progress
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-4">
+          <TabsContent value="achievements" className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {achievements.map((achievement) => (
-                <Card 
-                  key={achievement.id} 
-                  className={`transition-all ${
-                    achievement.unlocked 
-                      ? 'bg-gradient-to-br from-success/10 to-success/5 border-success/20' 
-                      : 'bg-muted/30 border-muted'
-                  }`}
-                >
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded-lg ${
-                        achievement.unlocked ? 'bg-success/20 text-success' : 'bg-muted text-muted-foreground'
+                <Card key={achievement.id} className="border-0 shadow-lg">
+                  <div className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                        achievement.unlocked
+                          ? 'bg-gradient-to-br from-yellow-400 to-orange-400 text-white'
+                          : 'bg-slate-100 text-slate-400'
                       }`}>
                         {achievement.icon}
                       </div>
-                      <div className="flex-1 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-semibold">{achievement.title}</h4>
-                          {achievement.unlocked && (
-                            <Badge variant="outline" className="bg-success/10 text-success border-success/20">
-                              <CheckCircle className="h-3 w-3 mr-1" />
-                              Unlocked
-                            </Badge>
-                          )}
-                        </div>
-                        <p className="text-sm text-muted-foreground">{achievement.description}</p>
-                        
-                        {!achievement.unlocked && achievement.progress !== undefined && achievement.maxProgress && (
-                          <div className="space-y-1">
-                            <div className="flex justify-between text-sm">
-                              <span>Progress</span>
-                              <span>{achievement.progress}/{achievement.maxProgress}</span>
-                            </div>
-                            <Progress value={(achievement.progress / achievement.maxProgress) * 100} className="h-2" />
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-slate-900">{achievement.title}</h4>
+                        <p className="text-sm text-slate-600 mt-1">{achievement.description}</p>
+                        <div className="mt-3">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className="text-slate-600">Progress</span>
+                            <span className="font-medium">{achievement.progress}/{achievement.maxProgress}</span>
                           </div>
-                        )}
+                          <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full transition-all ${
+                                achievement.unlocked
+                                  ? 'bg-gradient-to-r from-green-500 to-emerald-500'
+                                  : 'bg-gradient-to-r from-purple-500 to-pink-500'
+                              }`}
+                              style={{ width: `${Math.min(100, (achievement.progress / achievement.maxProgress) * 100)}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                        <div className="mt-3 flex items-center gap-2">
+                          <Gift className="w-4 h-4 text-orange-500" />
+                          <span className="text-sm font-medium text-orange-600">+{achievement.points} points</span>
+                        </div>
                       </div>
                     </div>
-                  </CardContent>
+                  </div>
                 </Card>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </TabsContent>
 
-        {/* Emergency Button */}
-        <Card className="shadow-strong border-error/20">
-          <CardContent className="p-4">
-            <Button 
-              variant="destructive" 
-              size="lg" 
-              className="w-full bg-gradient-to-r from-error to-error-light hover:from-error/90 hover:to-error-light/90"
-            >
-              <AlertCircle className="h-5 w-5 mr-2" />
-              Emergency Alert - Tap for Help
-            </Button>
-            <p className="text-center text-xs text-muted-foreground mt-2">
-              Only use in case of actual emergency
-            </p>
-          </CardContent>
-        </Card>
+          <TabsContent value="stats" className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Attendance Overview</h3>
+                  <div className="space-y-4">
+                    <div className="text-center py-4">
+                      <div className="text-5xl font-bold text-purple-600">{studentData.attendancePercentage}%</div>
+                      <div className="text-slate-600 mt-2">Overall Attendance</div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-green-600">{studentData.totalDaysPresent}</div>
+                        <div className="text-xs text-slate-600">Days Present</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-slate-900">{studentData.totalDays}</div>
+                        <div className="text-xs text-slate-600">Total Days</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              <Card className="border-0 shadow-lg">
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Rankings</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl">
+                      <div className="flex items-center gap-3">
+                        <Trophy className="w-6 h-6 text-orange-500" />
+                        <div>
+                          <div className="font-semibold text-slate-900">Class Rank</div>
+                          <div className="text-sm text-slate-600">Out of 45 students</div>
+                        </div>
+                      </div>
+                      <div className="text-2xl font-bold text-orange-600">#{studentData.rank}</div>
+                    </div>
+                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl">
+                      <div className="flex items-center gap-3">
+                        <Flame className="w-6 h-6 text-pink-500" />
+                        <div>
+                          <div className="font-semibold text-slate-900">Current Streak</div>
+                          <div className="text-sm text-slate-600">Consecutive days</div>
+                        </div>
+                      </div>
+                      <div className="text-2xl font-bold text-pink-600">{studentData.streak} days</div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

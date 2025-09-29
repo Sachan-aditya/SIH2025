@@ -1,0 +1,385 @@
+/* Smart Shiksha Scan - Vibrant Design System
+   Modern, Bold, and Visually Stunning Design */
+
+:root {
+  /* Primary Colors - Vibrant Purple & Pink Gradient Theme */
+  --primary-purple: #9333ea;
+  --primary-pink: #ec4899;
+  --primary-indigo: #6366f1;
+  --primary-blue: #3b82f6;
+  --primary-cyan: #06b6d4;
+
+  /* Gradient Combinations */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-success: linear-gradient(135deg, #13ce66 0%, #06ffa5 100%);
+  --gradient-warning: linear-gradient(135deg, #ffa738 0%, #ff6b6b 100%);
+  --gradient-vibrant: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+
+  /* Accent Colors */
+  --accent-violet: #8b5cf6;
+  --accent-fuchsia: #d946ef;
+  --accent-rose: #f43f5e;
+  --accent-teal: #14b8a6;
+  --accent-amber: #f59e0b;
+
+  /* Neutral Palette with Purple Tint */
+  --neutral-50: #faf5ff;
+  --neutral-100: #f3e8ff;
+  --neutral-200: #e9d5ff;
+  --neutral-300: #d8b4fe;
+  --neutral-400: #c084fc;
+  --neutral-500: #a855f7;
+  --neutral-600: #9333ea;
+  --neutral-700: #7e22ce;
+  --neutral-800: #6b21a8;
+  --neutral-900: #581c87;
+
+  /* Background Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #faf5ff;
+  --bg-tertiary: #f3e8ff;
+  --bg-gradient: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 50%, #e9d5ff 100%);
+
+  /* Typography Scale */
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-2xl: 1.5rem;
+  --font-3xl: 1.875rem;
+  --font-4xl: 2.25rem;
+  --font-5xl: 3rem;
+  --font-6xl: 3.75rem;
+
+  /* Spacing System */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
+  /* Shadows - Purple Tinted */
+  --shadow-sm: 0 1px 2px 0 rgba(147, 51, 234, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(147, 51, 234, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(147, 51, 234, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(147, 51, 234, 0.15);
+  --shadow-2xl: 0 25px 50px -12px rgba(147, 51, 234, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(147, 51, 234, 0.06);
+  --shadow-glow: 0 0 30px rgba(147, 51, 234, 0.5);
+
+  /* Animations */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Modern Components */
+.card-vibrant {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(147, 51, 234, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.card-vibrant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.card-vibrant:hover::before {
+  transform: scaleX(1);
+}
+
+.card-vibrant:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2xl);
+}
+
+/* Gradient Buttons */
+.btn-gradient {
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  transition: all var(--transition-spring);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-secondary);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.btn-gradient:hover::before {
+  opacity: 1;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.4);
+}
+
+.btn-gradient > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Outline Button */
+.btn-outline-gradient {
+  background: transparent;
+  color: var(--primary-purple);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white),
+                    var(--gradient-primary);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  cursor: pointer;
+}
+
+.btn-outline-gradient:hover {
+  background-image: var(--gradient-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.3);
+}
+
+/* Glass Cards */
+.glass-vibrant {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.4));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(147, 51, 234, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+
+/* Gradient Text */
+.text-gradient-vibrant {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated Background */
+.bg-animated {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Floating Elements */
+.floating {
+  animation: float-up-down 4s ease-in-out infinite;
+}
+
+@keyframes float-up-down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Blob Shapes */
+.blob {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: blob-morph 8s ease-in-out infinite;
+}
+
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  25% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  }
+  50% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  }
+  75% {
+    border-radius: 70% 30% 70% 30% / 30% 70% 30% 70%;
+  }
+}
+
+/* Status Indicators */
+.status-badge {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.status-badge.success {
+  background: linear-gradient(135deg, #13ce66 0%, #06ffa5 100%);
+  color: white;
+}
+
+.status-badge.warning {
+  background: linear-gradient(135deg, #ffa738 0%, #ffea00 100%);
+  color: #663c00;
+}
+
+.status-badge.error {
+  background: linear-gradient(135deg, #f5576c 0%, #ff0844 100%);
+  color: white;
+}
+
+.status-badge.info {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+/* Loading Animations */
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--neutral-200) 25%,
+    var(--neutral-300) 50%,
+    var(--neutral-200) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Scroll Animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Interactive Elements */
+.interactive-element {
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-element::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(147, 51, 234, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.interactive-element:hover::after {
+  width: 300%;
+  height: 300%;
+}
+
+/* Grid System */
+.grid-vibrant {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  :root {
+    --font-5xl: 2.5rem;
+    --font-4xl: 2rem;
+    --font-3xl: 1.5rem;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-secondary);
+}
